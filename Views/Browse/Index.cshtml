@@ -1,0 +1,60 @@
+@model List<TimelyTastes.Models.BrowseViewModel>
+
+
+<!-- Featured Businesses -->
+<div class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-3xl font-bold text-dark" data-aos="fade-right">Todays Offers</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach (var meal in Model)
+            {
+
+                <!-- Business Card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden food-card" data-aos="fade-up">
+                    <img src="@Url.Action("GetImage", "Listings", new { id = meal.listing.Id })" alt="Listing Image"
+                        class="w-full h-40 object-cover" />
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">@meal.listing.Name</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-1">@meal.vendors.TotalReviews</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.QuantityAvailable} Packs Left") </p>
+                        <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.AvailableFrom}") </p>
+                        <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.AvailableUntil}") </p>
+                        <p class="text-gray-600 text-sm mb-3">@($"{meal.vendors.Address}") • 0.3 miles away</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-lg font-bold text-primary">@($"R{meal.listing.DiscountPrice}")</span>
+                                <span class="text-sm text-gray-700 line-through"> @($"R{meal.listing.OriginalPrice}")</span>
+                            </div>
+                            <a asp-controller="Browse" asp-action="Orders"
+                                class="bg-primary hover:bg-green-600 text-white text-sm px-3 py-1 rounded-md transition duration-300">
+                                Reserve
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+    feather.replace();
+</script>

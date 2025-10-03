@@ -1,0 +1,91 @@
+@model TimelyTastes.Models.Vendors
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Vendors</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Url.Action("GetImage", "Vendors", new { id = Model.VendorID })" alt="Vendor Logo"
+                style="max-width:100px; max-height:100px;" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Biography)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Biography)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ShopOwnerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ShopOwnerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FoodQuality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FoodQuality)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FoodQuantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FoodQuantity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FoodVariety)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FoodVariety)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CollectionExperience)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CollectionExperience)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SavedMeals)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SavedMeals)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalReviews)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalReviews)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.VendorID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
