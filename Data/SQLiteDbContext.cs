@@ -12,12 +12,19 @@ namespace TimelyTastes.Data
 
         public DbSet<Listing>? Listings { get; set; }
         public DbSet<Vendors>? Vendors { get; set; }
+        public DbSet<Transaction>? Transactions { get; set; }
+
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Listing>().ToTable("Listing");
             modelBuilder.Entity<Vendors>().ToTable("Vendor");
+            modelBuilder.Entity<Transaction>().ToTable("Transactions");
+
+
 
         }
     }

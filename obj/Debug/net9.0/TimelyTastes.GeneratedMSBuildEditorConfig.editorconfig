@@ -32,8 +32,8 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQnJvd3NlL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Browse/Orders.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQnJvd3NlL09yZGVycy5jc2h0bWw=
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Browse/Summary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQnJvd3NlL1N1bW1hcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Home/Index.cshtml]
@@ -66,6 +66,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Listings/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGlzdGluZ3MvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Complete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0NvbXBsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Shared/Error.cshtml]

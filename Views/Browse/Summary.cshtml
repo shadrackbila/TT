@@ -1,0 +1,162 @@
+@model TimelyTastes.Models.Browse
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinnamon Rolls Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4CAF50',
+                        secondary: '#FFC107',
+                        accent: '#FF5722',
+                        dark: '#263238',
+                        light: '#ECEFF1',
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body class="bg-light min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+        <!-- Header -->
+        <header class="bg-primary text-white rounded-t-xl p-6 shadow-lg">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold">Sweet Checkout</h1>
+                <i data-feather="shopping-cart" class="w-8 h-8"></i>
+            </div>
+            <p class="mt-2 opacity-90">@($"Complete your {Model.listing.Name} purchase")</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="bg-white rounded-b-xl shadow-lg overflow-hidden">
+            <!-- Product Section -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-start">
+                     <img src="@Url.Action("GetImage", "Listings", new { id = Model.listing.Id })" alt="@($"{Model.listing.Name} image")"
+                       class="w-24 h-24 object-cover rounded-lg mr-4"/>
+
+                   
+                    <div>
+                        <h2 class="text-2xl font-bold text-dark">@($"{Model.listing.Name}")</h2>
+                        <div class="mt-1 flex items-center text-accent">
+                            <i data-feather="alert-circle" class="w-4 h-4 mr-1"></i>
+                            <span class="text-sm font-medium">@($"Only {Model.listing.QuantityAvailable} packs left!")</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Details Grid -->
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-light p-4 rounded-lg">
+                        <div class="flex items-center text-dark">
+                            <i data-feather="clock" class="w-5 h-5 mr-2 text-secondary"></i>
+                            <span class="font-medium">Pickup Time</span>
+                        </div>
+                        <p class="mt-2 font-semibold">@($"{Model.listing.AvailableFrom}")</p>
+                    </div>
+
+                    <div class="bg-light p-4 rounded-lg">
+                        <div class="flex items-center text-dark">
+                            <i data-feather="alert-triangle" class="w-5 h-5 mr-2 text-accent"></i>
+                            <span class="font-medium">Expires At</span>
+                        </div>
+                        <p class="mt-2 font-semibold">@($"{Model.listing.AvailableFrom}")</p>
+                    </div>
+
+                    <div class="bg-light p-4 rounded-lg">
+                        <div class="flex items-center text-dark">
+                            <i data-feather="map-pin" class="w-5 h-5 mr-2 text-primary"></i>
+                            <span class="font-medium">Location</span>
+                        </div>
+                        <p class="mt-2 font-semibold">@($"{Model.vendors.Address}")</p>
+                        <p class="text-sm text-gray-600">0.3 miles away</p>
+                    </div>
+
+                    <div class="bg-light p-4 rounded-lg">
+                        <div class="flex items-center text-dark">
+                            <i data-feather="tag" class="w-5 h-5 mr-2 text-secondary"></i>
+                            <span class="font-medium">Pricing</span>
+                        </div>
+                        <div class="mt-2">
+                            <p class="line-through text-gray-500">@($"R{Model.listing.OriginalPrice}")</p>
+                            <p class="text-xl font-bold text-primary">@($"R{Model.listing.DiscountPrice}")<span
+                                    class="text-sm bg-accent text-white px-2 py-1 rounded-full ml-2 invisible">50% OFF</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Section border-b border-gray-200 -->
+            <div class="p-6 h-20">
+                @* <h3 class="text-xl font-bold text-dark mb-4">Looks tasty! Want to add more?</h3>
+                <div class="space-y-4">
+                    <div
+                        class="flex items-center bg-light p-4 rounded-lg cursor-pointer hover:bg-primary/10 transition">
+                        <i data-feather="credit-card" class="w-6 h-6 text-secondary mr-3"></i>
+                        <span class="font-medium">Credit/Debit Card</span>
+                    </div>
+                    <div
+                        class="flex items-center bg-light p-4 rounded-lg cursor-pointer hover:bg-primary/10 transition">
+                        <i data-feather="dollar-sign" class="w-6 h-6 text-secondary mr-3"></i>
+                        <span class="font-medium">Cash on Pickup</span>
+                    </div>
+                </div> *@
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="p-6">
+                <div class="flex items-start">
+                    <input type="checkbox" id="terms" class="mt-1 mr-3 h-5 w-5 text-primary rounded focus:ring-primary">
+                    <label for="terms" class="text-sm text-gray-700">
+                        I agree to the <a href="#" class="text-primary font-medium hover:underline">Terms and
+                            Conditions</a> and understand that my order cannot be modified after submission. I
+                        acknowledge the pickup expiration time and that late pickups may result in order cancellation.
+                    </label>
+                </div>
+     
+
+
+
+
+                <form method="get" action="/pay/getrequest" class="w-full">
+                <input type="hidden" name="listingId" value="@Model.listing.Id" />
+                <button type="submit"
+                class="w-full mt-6 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-[1.01] animate-pulse-slow"
+                onclick="return checkTerms();">
+                @($"Continue - R{Model.listing.DiscountPrice}")
+                </button>
+                </form>
+
+
+     
+            </div>
+        </main>
+    </div>
+
+    <script>
+           function checkTerms() {
+           const termsChecked = document.getElementById('terms').checked;
+        if (!termsChecked) {
+            alert('Please agree to the Terms and Conditions before completing your purchase.');
+            return false;
+        }
+        return true; 
+    }
+
+        feather.replace();
+    </script>
+</body>
+
+</html>

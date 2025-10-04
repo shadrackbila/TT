@@ -14,6 +14,7 @@ namespace TimelyTastes.Controllers
     {
         private readonly SQLiteDbContext _context;
 
+
         public BrowseController(SQLiteDbContext context)
         {
             _context = context;
@@ -21,36 +22,52 @@ namespace TimelyTastes.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            List<BrowseViewModel> items = new List<BrowseViewModel>();
-            var vendors = await _context.Vendors.ToListAsync() ?? new List<Vendors>();
-            var listings = await _context.Listings.ToListAsync() ?? new List<Listing>();
-
-
-            foreach (Vendors item in vendors)
-            {
-                Listing list = listings.FirstOrDefault(f => f.VendorID == item.VendorID);
-
-
-                if (list != null && list.QuantityAvailable > 0)
-                {
-                    items.Add(new BrowseViewModel
-                    {
-                        vendors = item,
-                        listing = list
-                    });
-                }
-
-
-            }
+            var items = await (from v in _context.Vendors
+                               join l in _context.Listings
+                               on v.VendorID equals l.VendorID
+                               where l.QuantityAvailable > 0
+                               select new Browse
+                               {
+                                   vendors = v,
+                                   listing = l
+                               }).ToListAsync();
 
             return View(items);
         }
 
 
-        public async Task<IActionResult> Orders()
+
+        public async Task<IActionResult> Summary(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var orderDetails = await (from v in _context.Vendors
+                                      join l in _context.Listings
+                                      on v.VendorID equals l.VendorID
+                                      where l.QuantityAvailable > 0 && l.Id == id
+                                      select new Browse
+                                      {
+                                          vendors = v,
+                                          listing = l
+                                      }).FirstOrDefaultAsync();
+
+            if (orderDetails == null)
+            {
+                return NotFound();
+            }
+
+            // var ordersController = new OrdersController(null); // pass null if you don’t need the context
+            // string payFastFormHtml = ordersController.PayFastHelper();
+            // // Generate PayFast form HTML
+
+
+            // // Pass the HTML to the view
+            // ViewBag.PayFastForm = payFastFormHtml;
+
+            return View(orderDetails);
         }
 
 

@@ -556,6 +556,10 @@ video {
   }
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .static {
   position: static;
 }
@@ -645,6 +649,10 @@ video {
   margin-top: 2rem;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
@@ -695,6 +703,10 @@ video {
 
 .h-8 {
   height: 2rem;
+}
+
+.h-20 {
+  height: 5rem;
 }
 
 .min-h-screen {

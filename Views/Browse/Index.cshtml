@@ -1,4 +1,4 @@
-@model List<TimelyTastes.Models.BrowseViewModel>
+@model List<TimelyTastes.Models.Browse>
 
 
 <!-- Featured Businesses -->
@@ -36,7 +36,7 @@
                                 <span class="text-lg font-bold text-primary">@($"R{meal.listing.DiscountPrice}")</span>
                                 <span class="text-sm text-gray-700 line-through"> @($"R{meal.listing.OriginalPrice}")</span>
                             </div>
-                            <a asp-controller="Browse" asp-action="Orders"
+                            <a asp-controller="Browse" asp-action="Summary" asp-route-id="@meal.listing.Id"
                                 class="bg-primary hover:bg-green-600 text-white text-sm px-3 py-1 rounded-md transition duration-300">
                                 Reserve
                             </a>
