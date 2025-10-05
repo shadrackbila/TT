@@ -66,7 +66,7 @@ namespace TimelyTastes.Controllers
                 request.Add("REFERENCE", "#45846"); // Payment ref e.g ORDER NUMBER
                 request.Add("AMOUNT", paymentAmount);
                 request.Add("CURRENCY", "ZAR"); // South Africa
-                request.Add("RETURN_URL", "https://e208ea035aaf.ngrok-free.app");
+                request.Add("RETURN_URL", "https://febc49b45cda.ngrok-free.app/pay/completepayment");
                 request.Add("TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 request.Add("LOCALE", "en-za");
                 request.Add("COUNTRY", "ZAF");
@@ -97,11 +97,14 @@ namespace TimelyTastes.Controllers
                 // Ensure AddTransaction always succeeds
                 bool isRecorded = _payment.AddTransaction(request, results["PAY_REQUEST_ID"]);
 
+
                 // Build auto-submit form to PayGate
                 string payRequestId = results["PAY_REQUEST_ID"];
                 string checksum = results["CHECKSUM"];
 
-                string form = $@"
+                if (isRecorded)
+                {
+                    string form = $@"
 <html>
     <body onload='document.forms[0].submit()'>
         <form action='https://secure.paygate.co.za/payweb3/process.trans' method='POST'>
@@ -115,7 +118,12 @@ namespace TimelyTastes.Controllers
     </body>
 </html>";
 
-                return Content(form, "text/html");
+                    return Content(form, "text/html");
+                }
+                else
+                {
+                    return Json(request);
+                }
             }
             catch (Exception ex)
             {
@@ -129,7 +137,7 @@ namespace TimelyTastes.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost("pay/completepayment")]
         public async Task<ActionResult> CompletePayment()
         {
             // string responseContent = Request.Params.ToString();
