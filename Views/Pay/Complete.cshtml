@@ -1,30 +1,123 @@
 @{
     ViewBag.Title = "Payment Completed";
 }
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Payment Status</h2>
-            <hr />
-            <br />
-            @if (TempData["Status"] != null)
-            {
-                if (TempData["Status"].ToString() == "Approved")
-                {
-                    <p class="lead text-info">
-                        Your payment has been approved!
-                    </p>
-                }
-                else
-                {
-                    <p class="lead text-danger">
-                        Payment Status: @TempData["Status"]
-                    </p>
-                }
-            }
-            <br />
+<div class="flex items-center justify-center p-7">
+    <div class="max-w-3xl w-full bg-white rounded-xl shadow-xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-primary p-6 text-center">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-feather="check-circle" class="text-primary w-12 h-12"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Order Confirmed!</h1>
+            <p class="text-white opacity-90 mt-1">Your payment was successful</p>
         </div>
-        <br />
+
+        <!-- Order Details -->
+        <div class="p-6 space-y-6">
+            <div class="space-y-4">
+                <h2 class="text-lg font-semibold text-dark">Order Summary</h2>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Order Number</p>
+                        <p class="font-medium">#ORD-87654321</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Shop Name</p>
+                        <p class="font-medium">GreenLeaf Grocery</p>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-200">
+                    <p class="text-sm text-gray-500">Pickup Location</p>
+                    <p class="font-medium">123 Main St, Downtown</p>
+                    <p class="text-sm text-gray-400">Near the cashier counter</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200">
+                    <div>
+                        <p class="text-sm text-gray-500">Pickup Time</p>
+                        <p class="font-medium">Today, 4:00 PM</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Expires At</p>
+                        <p class="font-medium">Today, 6:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTP Section -->
+            <div class="bg-secondary bg-opacity-10 rounded-lg p-4 border border-secondary border-opacity-30">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-sm text-gray-500">Collection OTP</p>
+                        <p class="text-2xl font-bold text-dark tracking-widest">4 8 9 2</p>
+                    </div>
+                    <button class="bg-secondary text-white p-2 rounded-full">
+                        <i data-feather="copy" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Show this code to collect your order</p>
+            </div>
+
+            <!-- Actions -->
+            <div class="space-y-3">
+                <button
+                    class="w-full bg-primary hover:bg-opacity-90 text-white py-3 px-4 rounded-lg font-medium transition">
+                    View Order Details
+                </button>
+                <button
+                    class="w-full border border-primary text-primary hover:bg-primary hover:bg-opacity-5 py-3 px-4 rounded-lg font-medium transition">
+                    Share Receipt
+                </button>
+                <button onclick="fireConfetti()"
+                    class="hidden px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-lg font-semibold hover:from-pink-600 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+            <p class="text-center text-sm text-gray-500">Need help? <a href="#" class="text-primary font-medium">Contact
+                    Us</a></p>
+        </div>
     </div>
 </div>
+<script>
+    feather.replace();
+
+    // Simple animation for OTP section
+    setTimeout(() => {
+        document.querySelector('.text-2xl').classList.add('animate-pulse-slow');
+    }, 1000);
+
+    function fireConfetti() {
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initial burst
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        // Continuous smaller bursts
+        const interval = setInterval(() => {
+            confetti({
+                particleCount: 100,
+                spread: 60,
+                origin: { y: 0.6 },
+                colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+            });
+        }, 3000);
+
+        // Stop after 15 seconds
+        setTimeout(() => clearInterval(interval), 15000);
+    });
+
+</script>
