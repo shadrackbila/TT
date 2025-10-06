@@ -61,9 +61,11 @@ namespace TimelyTastes.Controllers
                 Dictionary<string, string> request = new Dictionary<string, string>();
                 int amountInCents = (int)(listing.DiscountPrice * 100);
                 string paymentAmount = amountInCents.ToString();  // amount in cents
+                var random = new Random();
+                string paymentReference = random.Next(10000, 99999).ToString();
 
                 request.Add("PAYGATE_ID", PayGateID);
-                request.Add("REFERENCE", "#45846"); // Payment ref e.g ORDER NUMBER
+                request.Add("REFERENCE", paymentReference); // Payment ref e.g ORDER NUMBER
                 request.Add("AMOUNT", paymentAmount);
                 request.Add("CURRENCY", "ZAR"); // South Africa
                 request.Add("RETURN_URL", "https://febc49b45cda.ngrok-free.app/pay/completepayment");
@@ -122,7 +124,7 @@ namespace TimelyTastes.Controllers
                 }
                 else
                 {
-                    return Json(request);
+                    return Json("Something went wrong");
                 }
             }
             catch (Exception ex)
@@ -177,10 +179,33 @@ namespace TimelyTastes.Controllers
              * 4 = User Cancelled
              */
             int paymentStatus = int.Parse(results["TRANSACTION_STATUS"]);
+
             if (paymentStatus == 1)
             {
-                // Yey, payment approved
-                // Do something useful
+                var existingTransaction = await _context.Transactions
+                  .FirstOrDefaultAsync(t => t.REFERENCE == transaction.REFERENCE);
+
+                if (existingTransaction == null)
+                {
+                    // Transaction not found — prevent proceeding
+                    paymentStatus = 404;
+                    return RedirectToAction("Complete", new { id = paymentStatus });
+                }
+
+                // Optionally double-check the PAY_REQUEST_ID too
+                if (existingTransaction.PAY_REQUEST_ID != results["PAY_REQUEST_ID"])
+                {
+                    // Mismatch — could be tampering
+                    paymentStatus = -2;
+                    return RedirectToAction("Complete", new { id = paymentStatus });
+                }
+
+                TempData["PaymentStatus"] = paymentStatus;
+                TempData["Reference"] = transaction.REFERENCE; // optional if you need it
+
+                // Redirect without showing the ID
+                return RedirectToAction("Approved");
+
             }
             // Query paygate transaction details
             // And update user transaction on your database
@@ -221,6 +246,26 @@ namespace TimelyTastes.Controllers
         }
 
 
+        public ViewResult Approved()
+        {
+
+            if (TempData["PaymentStatus"] == null)
+            {
+                return View("NotFound");
+            }
+
+            int paymentStatus = (int)TempData["PaymentStatus"];
+            string reference = TempData["Reference"]?.ToString();
+
+            TempData.Keep("PaymentStatus");
+            TempData.Keep("Reference");
+
+            ViewBag.Reference = reference;
+
+            return View();
+        }
+
+
         public ViewResult Complete(int? id)
         {
             string status = "Unknown";
@@ -233,11 +278,9 @@ namespace TimelyTastes.Controllers
                     status = "Error";
                     break;
                 case "0":
-                    status = "Not Done";
+                    status = "NotDone";
                     break;
-                case "1":
-                    status = "Approved";
-                    break;
+
                 case "2":
                     status = "Declined";
                     break;

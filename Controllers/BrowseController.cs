@@ -59,13 +59,6 @@ namespace TimelyTastes.Controllers
                 return NotFound();
             }
 
-            // var ordersController = new OrdersController(null); // pass null if you don’t need the context
-            // string payFastFormHtml = ordersController.PayFastHelper();
-            // // Generate PayFast form HTML
-
-
-            // // Pass the HTML to the view
-            // ViewBag.PayFastForm = payFastFormHtml;
 
             return View(orderDetails);
         }

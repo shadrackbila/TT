@@ -7,6 +7,7 @@ namespace TimelyTastes.Models
     {
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The Listing VendorID is required")]

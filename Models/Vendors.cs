@@ -8,6 +8,7 @@ namespace TimelyTastes.Models
 
         // public int ShopId { get; set; } = 0;
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VendorID { get; set; } = 0;
 
         [Required]
