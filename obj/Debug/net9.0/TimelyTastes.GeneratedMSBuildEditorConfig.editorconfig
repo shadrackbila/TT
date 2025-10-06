@@ -68,12 +68,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGlzdGluZ3MvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Complete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0NvbXBsZXRlLmNzaHRtbA==
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Approved.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0FwcHJvdmVkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0luZGV4LmNzaHRtbA==
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Cancelled.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0NhbmNlbGxlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Declined.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0RlY2xpbmVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L05vdEZvdW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Reconsile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L1JlY29uc2lsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/UserCancelled.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L1VzZXJDYW5jZWxsZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Shared/Error.cshtml]

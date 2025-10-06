@@ -70,7 +70,7 @@ namespace TimelyTastes.Controllers
                 request.Add("TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 request.Add("LOCALE", "en-za");
                 request.Add("COUNTRY", "ZAF");
-                request.Add("EMAIL", "test@example.com"); // placeholder email
+                request.Add("EMAIL", "tshepobila2000@gmail.com"); // placeholder email
 
                 // Generate checksum
                 request.Add("CHECKSUM", _payment.GetMd5Hash(request, PayGateKey));
@@ -227,10 +227,10 @@ namespace TimelyTastes.Controllers
             switch (id.ToString())
             {
                 case "-2":
-                    status = "Unable to reconsile transaction";
+                    status = "Reconsile";
                     break;
                 case "-1":
-                    status = "Checksum Error. The values have been altered";
+                    status = "Error";
                     break;
                 case "0":
                     status = "Not Done";
@@ -245,15 +245,17 @@ namespace TimelyTastes.Controllers
                     status = "Cancelled";
                     break;
                 case "4":
-                    status = "User Cancelled";
+                    status = "UserCancelled";
                     break;
                 default:
-                    status = $"Unknown Status({id})";
+                    // status = $"Unknown Status({id})";
+                    status = $"NotFound";
+
                     break;
             }
             TempData["Status"] = status;
 
-            return View();
+            return View(status);
         }
 
     }
