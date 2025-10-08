@@ -28,8 +28,17 @@
                             <span class="text-gray-600 text-sm ml-1">@meal.vendors.TotalReviews</span>
                         </div>
                         <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.QuantityAvailable} Packs Left") </p>
-                        <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.AvailableFrom}") </p>
-                        <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.AvailableUntil}") </p>
+                        <p class="text-gray-600 text-sm mb-3">
+                            @(meal.listing.AvailableFrom.Date == DateTime.Today
+                                                    ? $"Today, {meal.listing.AvailableFrom:h:mm tt}"
+                                                    : meal.listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
+                        </p>
+
+                        <p class="text-gray-600 text-sm mb-3">
+                            @(meal.listing.AvailableUntil.Date == DateTime.Today
+                                                    ? $"Today, {meal.listing.AvailableUntil:h:mm tt}"
+                                                    : meal.listing.AvailableUntil.ToString("d MMMM, h:mm tt"))
+                        </p>
                         <p class="text-gray-600 text-sm mb-3">@($"{meal.vendors.Address}") • 0.3 miles away</p>
                         <div class="flex justify-between items-center">
                             <div class="flex justify-between items-center gap-2">

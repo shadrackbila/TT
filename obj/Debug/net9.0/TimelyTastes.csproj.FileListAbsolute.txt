@@ -361,7 +361,6 @@
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/ref/TimelyTastes.dll
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/package-lock.json
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/package.json
-/Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/9jz4eceu3b-pt1jgwkl1p.gz
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/TimelyTastes.sourcelink.json
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/publish/web.config
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/publish/appsettings.Development.json
@@ -371,4 +370,5 @@
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/publish/TimelyTastes.deps.json
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/publish/TimelyTastes.runtimeconfig.json
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/publish/TimelyTastes.staticwebassets.endpoints.json
-/Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/ean4xwvfo9-sjpkafbc92.gz
+/Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/9jz4eceu3b-sujpbfrzi9.gz
+/Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/ean4xwvfo9-xeo0oww5t3.gz

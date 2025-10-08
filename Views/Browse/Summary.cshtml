@@ -59,20 +59,28 @@
 
                 <!-- Details Grid -->
                 <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-light p-4 rounded-lg">
-                        <div class="flex items-center text-dark">
-                            <i data-feather="clock" class="w-5 h-5 mr-2 text-secondary"></i>
-                            <span class="font-medium">Pickup Time</span>
-                        </div>
-                        <p class="mt-2 font-semibold">@($"{Model.listing.AvailableFrom}")</p>
-                    </div>
+                  <div class="bg-light p-4 rounded-lg">
+                      <div class="flex items-center text-dark">
+                      <i data-feather="clock" class="w-5 h-5 mr-2 text-secondary"></i>
+                      <span class="font-medium">Pickup Time</span>
+                  </div>
+                    <p class="mt-2 font-semibold">
+                       @(Model.listing.AvailableFrom.Date == DateTime.Today 
+                      ? $"Today, {Model.listing.AvailableFrom:h:mm tt}" 
+                     : Model.listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
+                     </p>
+                   </div>
 
                     <div class="bg-light p-4 rounded-lg">
-                        <div class="flex items-center text-dark">
-                            <i data-feather="alert-triangle" class="w-5 h-5 mr-2 text-accent"></i>
-                            <span class="font-medium">Expires At</span>
-                        </div>
-                        <p class="mt-2 font-semibold">@($"{Model.listing.AvailableFrom}")</p>
+                      <div class="flex items-center text-dark">
+                        <i data-feather="alert-triangle" class="w-5 h-5 mr-2 text-accent"></i>
+                         <span class="font-medium">Expires At</span>
+                            </div>
+                        <p class="mt-2 font-semibold">
+                                   @(Model.listing.AvailableUntil.Date == DateTime.Today 
+                                  ? $"Today, {Model.listing.AvailableUntil:h:mm tt}" 
+                                       : Model.listing.AvailableUntil.ToString("d MMMM, h:mm tt"))
+                        </p>
                     </div>
 
                     <div class="bg-light p-4 rounded-lg">

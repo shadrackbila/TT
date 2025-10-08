@@ -1,6 +1,5 @@
-@{
-    ViewBag.Title = "Payment Completed";
-}
+@model TimelyTastes.Models.Orders
+
 <div class="flex items-center justify-center p-7">
     <div class="max-w-3xl w-full bg-white rounded-xl shadow-xl overflow-hidden">
         <!-- Header -->
@@ -20,28 +19,39 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-sm text-gray-500">Order Number</p>
-                        <p class="font-medium">@ViewBag.Reference</p>
+                        <p class="font-medium">@Model.OrderNumber</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Shop Name</p>
-                        <p class="font-medium">GreenLeaf Grocery</p>
+                        <p class="font-medium">@Model.Vendor.Name</p>
                     </div>
                 </div>
 
                 <div class="pt-4 border-t border-gray-200">
                     <p class="text-sm text-gray-500">Pickup Location</p>
-                    <p class="font-medium">123 Main St, Downtown</p>
+                    <p class="font-medium">@Model.Vendor.Address</p>
                     <p class="text-sm text-gray-400">Near the cashier counter</p>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200">
                     <div>
                         <p class="text-sm text-gray-500">Pickup Time</p>
-                        <p class="font-medium">Today, 4:00 PM</p>
+                        <p class="font-medium">
+                            @(Model.Listing.AvailableFrom.Date == DateTime.Today
+                                                        ? $"Today, {Model.Listing.AvailableFrom: h:mm tt}"
+                                                        : Model.Listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
+                        </p>
+
+
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Expires At</p>
-                        <p class="font-medium">Today, 6:00 PM</p>
+                        <p class="font-medium">
+                            @(Model.Listing.AvailableUntil.Date == DateTime.Today
+                                                        ? $"Today, {Model.Listing.AvailableUntil: h:mm tt}"
+                                                        : Model.Listing.AvailableUntil.ToString("d MMMM, h:mm tt"))
+                        </p>
+
                     </div>
                 </div>
             </div>
@@ -51,7 +61,7 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <p class="text-sm text-gray-500">Collection OTP</p>
-                        <p class="text-2xl font-bold text-dark tracking-widest">4 8 9 2</p>
+                        <p class="text-2xl font-bold text-dark tracking-widest">@($"{Model.OTP}")</p>
                     </div>
                     <button class="bg-secondary text-white p-2 rounded-full">
                         <i data-feather="copy" class="w-4 h-4"></i>

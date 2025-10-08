@@ -43,6 +43,7 @@ namespace TimelyTastes.Controllers
         {
             try
             {
+
                 if (listingId == null)
                 {
                     return NotFound();
@@ -56,13 +57,30 @@ namespace TimelyTastes.Controllers
                 }
 
 
-
                 HttpClient http = new HttpClient();
                 Dictionary<string, string> request = new Dictionary<string, string>();
+
                 int amountInCents = (int)(listing.DiscountPrice * 100);
                 string paymentAmount = amountInCents.ToString();  // amount in cents
+
                 var random = new Random();
                 string paymentReference = random.Next(10000, 99999).ToString();
+
+
+
+                var order = new Orders
+                {
+                    ID = Guid.NewGuid(),
+                    OrderDate = DateTime.UtcNow,
+                    OrderNumber = paymentReference,
+                    OTP = new Random().Next(1000, 9999).ToString(),
+                    OrderStatus = "Not Order",
+                    Listing = listing,
+                    Vendor = await _context.Vendors.FirstOrDefaultAsync(v => v.VendorID == listing.VendorID)
+                };
+
+                _context.Orders.Add(order);
+
 
                 request.Add("PAYGATE_ID", PayGateID);
                 request.Add("REFERENCE", paymentReference); // Payment ref e.g ORDER NUMBER
@@ -201,10 +219,36 @@ namespace TimelyTastes.Controllers
                 }
 
                 TempData["PaymentStatus"] = paymentStatus;
-                TempData["Reference"] = transaction.REFERENCE; // optional if you need it
+                TempData["Reference"] = transaction.REFERENCE;
+
+
+                if (transaction.REFERENCE == null)
+                {
+                    return NotFound();
+                }
+
+                var Order = await _context.Orders
+                   .Include(o => o.Vendor)
+                      .Include(o => o.Listing)
+                    .FirstOrDefaultAsync(m => m.OrderNumber == transaction.REFERENCE);
+
+                if (Order == null)
+                {
+                    return NotFound();
+                }
+
+                var listing = await _context.Listings
+                    .FirstOrDefaultAsync(m => m.Id == Order.Listing.Id);
+                if (listing == null)
+                {
+                    return NotFound();
+                }
+                Order.OrderStatus = "Active";
+                listing.QuantityAvailable = listing.QuantityAvailable - 1;
+                await _context.SaveChangesAsync();
 
                 // Redirect without showing the ID
-                return RedirectToAction("Approved");
+                return RedirectToAction("Approved", new { orderNumber = Order.OrderNumber });
 
             }
             // Query paygate transaction details
@@ -246,24 +290,25 @@ namespace TimelyTastes.Controllers
         }
 
 
-        public ViewResult Approved()
+        public async Task<ViewResult> Approved(string orderNumber)
         {
-
             if (TempData["PaymentStatus"] == null)
-            {
                 return View("NotFound");
-            }
-
-            int paymentStatus = (int)TempData["PaymentStatus"];
-            string reference = TempData["Reference"]?.ToString();
 
             TempData.Keep("PaymentStatus");
             TempData.Keep("Reference");
 
-            ViewBag.Reference = reference;
+            var order = await _context.Orders
+                .Include(o => o.Vendor)   // Load Vendor
+                .Include(o => o.Listing)  // Load Listing
+                .FirstOrDefaultAsync(o => o.OrderNumber == orderNumber);
 
-            return View();
+            if (order == null)
+                return View("NotFound");
+
+            return View(order);
         }
+
 
 
         public ViewResult Complete(int? id)
