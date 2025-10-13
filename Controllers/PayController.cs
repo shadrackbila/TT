@@ -90,7 +90,7 @@ namespace TimelyTastes.Controllers
                 request.Add("TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 request.Add("LOCALE", "en-za");
                 request.Add("COUNTRY", "ZAF");
-                request.Add("EMAIL", "tshepobila2000@gmail.com"); // placeholder email
+                request.Add("EMAIL", "timelytastes.PTY@gmail.com");
 
                 // Generate checksum
                 request.Add("CHECKSUM", _payment.GetMd5Hash(request, PayGateKey));
@@ -219,7 +219,7 @@ namespace TimelyTastes.Controllers
                 }
 
                 TempData["PaymentStatus"] = paymentStatus;
-                TempData["Reference"] = transaction.REFERENCE;
+                TempData["sendEmail"] = true;
 
 
                 if (transaction.REFERENCE == null)
@@ -296,7 +296,7 @@ namespace TimelyTastes.Controllers
                 return View("NotFound");
 
             TempData.Keep("PaymentStatus");
-            TempData.Keep("Reference");
+
 
             var order = await _context.Orders
                 .Include(o => o.Vendor)   // Load Vendor
@@ -306,8 +306,13 @@ namespace TimelyTastes.Controllers
             if (order == null)
                 return View("NotFound");
 
-            ISendEmail em = new Email();
-            em.SendEmail(order);
+            bool sendEmail = (bool)(TempData["sendEmail"] ?? false);
+            if (sendEmail)
+            {
+                ISendEmail em = new Email();
+                em.SendEmail(order);
+                TempData["sendEmail"] = false;
+            }
 
 
             return View(order);
