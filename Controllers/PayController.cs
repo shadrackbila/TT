@@ -86,7 +86,7 @@ namespace TimelyTastes.Controllers
                 request.Add("REFERENCE", paymentReference); // Payment ref e.g ORDER NUMBER
                 request.Add("AMOUNT", paymentAmount);
                 request.Add("CURRENCY", "ZAR"); // South Africa
-                request.Add("RETURN_URL", "https://febc49b45cda.ngrok-free.app/pay/completepayment");
+                request.Add("RETURN_URL", "https://soaringly-suborbicular-erika.ngrok-free.dev/pay/completepayment");
                 request.Add("TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 request.Add("LOCALE", "en-za");
                 request.Add("COUNTRY", "ZAF");
@@ -305,6 +305,10 @@ namespace TimelyTastes.Controllers
 
             if (order == null)
                 return View("NotFound");
+
+            ISendEmail em = new Email();
+            em.SendEmail(order);
+
 
             return View(order);
         }
