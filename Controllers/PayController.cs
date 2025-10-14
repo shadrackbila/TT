@@ -39,12 +39,12 @@ namespace TimelyTastes.Controllers
 
 
         [HttpGet("pay/getrequest")]
-        public async Task<IActionResult> GetRequest(int? listingId)
+        public async Task<IActionResult> GetRequest(int? listingId, string email)
         {
             try
             {
 
-                if (listingId == null)
+                if (listingId == null || string.IsNullOrEmpty(email))
                 {
                     return NotFound();
                 }
@@ -76,6 +76,7 @@ namespace TimelyTastes.Controllers
                     OTP = new Random().Next(1000, 9999).ToString(),
                     OrderStatus = "Not Order",
                     Listing = listing,
+                    Email = email,
                     Vendor = await _context.Vendors.FirstOrDefaultAsync(v => v.VendorID == listing.VendorID)
                 };
 

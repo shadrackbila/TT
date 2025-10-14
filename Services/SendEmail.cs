@@ -13,9 +13,8 @@ namespace TimelyTastes.Controllers
             bool status = false;
 
             // Recipient info
-            string recipientEmail = "tshepobila2000@gmail.com";
-            string recipientName = "John Doe";
-            string EmailAddress = "timelytastes.PTY@gmail.com";
+            string recipientEmail = !string.IsNullOrWhiteSpace(order.Email) ? order.Email : "timelytastes.PTY@gmail.com";
+            string senderAddress = "timelytastes.PTY@gmail.com";
 
             // Email content
             string subject = $"Order Confirmation - #{order.OrderNumber}";
@@ -104,12 +103,12 @@ namespace TimelyTastes.Controllers
             // SMTP setup - kefz uahx cjxf fsqu
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
-                Credentials = new NetworkCredential(EmailAddress, "kefz uahx cjxf fsqu"),
+                Credentials = new NetworkCredential(senderAddress, "kefz uahx cjxf fsqu"),
                 EnableSsl = true
             };
 
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(EmailAddress);
+            mailMessage.From = new MailAddress(senderAddress);
             mailMessage.To.Add(recipientEmail);
             mailMessage.Subject = subject;
             mailMessage.Body = body;

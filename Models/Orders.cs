@@ -16,5 +16,7 @@ namespace TimelyTastes.Models
 
         public Vendors? Vendor { get; set; }
         public Listing? Listing { get; set; }
+        public string? Email { get; set; }
+
     }
 }

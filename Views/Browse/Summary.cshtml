@@ -125,8 +125,16 @@
 
             <!-- Terms & Conditions -->
             <div class="p-6">
-                <div class="flex items-start">
-                    <input type="checkbox" id="terms" class="mt-1 mr-3 h-5 w-5 text-primary rounded focus:ring-primary">
+           
+
+
+
+                <form method="get" action="/pay/getrequest" class="w-full">
+                <input type="hidden" name="listingId" value="@Model.listing.Id" />
+                <input type="email"  name="email"  id="email"  placeholder="Enter your email" class="w-full border border-gray-300 rounded-lg p-3 mb-7 focus:outline-none focus:ring-2 focus:ring-primary" required/>
+
+                   <div class="flex items-start">
+                    <input type="checkbox" id="terms" class="mt-1 mr-3 h-5 w-5 text-primary rounded focus:ring-primary" required>
                     <label for="terms" class="text-sm text-gray-700">
                         I agree to the <a href="#" class="text-primary font-medium hover:underline">Terms and
                             Conditions</a> and understand that my order cannot be modified after submission. I
@@ -136,13 +144,9 @@
      
 
 
-
-
-                <form method="get" action="/pay/getrequest" class="w-full">
-                <input type="hidden" name="listingId" value="@Model.listing.Id" />
                 <button type="submit"
                 class="w-full mt-6 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-[1.01] animate-pulse-slow"
-                onclick="return checkTerms();">
+                @* onclick="return checkTerms();" *@>
                 @($"Continue - R{Model.listing.DiscountPrice}")
                 </button>
                 </form>
@@ -154,14 +158,14 @@
     </div>
 
     <script>
-           function checkTerms() {
+           @* function checkTerms() {
            const termsChecked = document.getElementById('terms').checked;
         if (!termsChecked) {
             alert('Please agree to the Terms and Conditions before completing your purchase.');
             return false;
         }
         return true; 
-    }
+    } *@
 
         feather.replace();
     </script>
