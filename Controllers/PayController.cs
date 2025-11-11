@@ -74,7 +74,7 @@ namespace TimelyTastes.Controllers
                     OrderDate = DateTime.UtcNow,
                     OrderNumber = paymentReference,
                     OTP = new Random().Next(1000, 9999).ToString(),
-                    OrderStatus = "Not Order",
+                    OrderStatus = "Failed",
                     Listing = listing,
                     Email = email,
                     Vendor = await _context.Vendors.FirstOrDefaultAsync(v => v.VendorID == listing.VendorID)
@@ -132,7 +132,7 @@ namespace TimelyTastes.Controllers
             <input type='hidden' name='PAY_REQUEST_ID' value='{payRequestId}' />
             <input type='hidden' name='CHECKSUM' value='{checksum}' />
             <noscript>
-                <input type='submit' value='Click here to continue to PayGate' />
+                <input type='submit' value='Click here to continue to PayGate' /> 
             </noscript>
         </form>
         <p style='text-align:center;'>Redirecting to PayGate...</p>

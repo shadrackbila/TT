@@ -180,6 +180,51 @@ namespace TimelyTastes.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ConfirmPickup(string id)
+        {
+            return View((object)id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmPickup(string OrderId, string Pin)
+        {
+            if (OrderId == null)
+            {
+                return NotFound();
+            }
+
+            Guid id = new Guid(OrderId);
+
+            var order = await _context.Orders
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+
+            if (order.OTP != Pin)
+            {
+                ViewData["ErrorMessage"] = "Incorrect PIN. Please try again.";
+                return View((object)OrderId);
+
+            }
+
+            order.OrderStatus = "Pickup Confirmed";
+            await _context.SaveChangesAsync();
+
+            return View();
+        }
+
+        public async Task<IActionResult> ViewOrders()
+        {
+            //validation here
+            var list = await _context.Orders.ToListAsync();
+            return View(list);
+        }
+
         private bool ListingExists(int id)
         {
             return _context.Listings.Any(e => e.Id == id);

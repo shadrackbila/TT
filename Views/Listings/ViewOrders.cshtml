@@ -1,0 +1,65 @@
+@model IEnumerable<TimelyTastes.Models.Orders>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+
+
+<div class="min-h-screen bg-light text-dark font-sans p-10 ">
+    <div class="flex gap-3">
+        <a asp-action="ViewOrders" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+            View Orders
+        </a>
+        <a asp-action="Index" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+            Listings Dashboard
+        </a>
+
+    </div>
+    <div class="bg-white rounded-2xl shadow-lg p-6 mt-10">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+            <h1 class="text-3xl font-semibold text-dark mb-4 sm:mb-0">
+                Orders Dashboard
+            </h1>
+
+        </div>
+
+        <div class="overflow-x-auto pt-10">
+            <table class="min-w-full border-collapse">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="px-4 py-3 text-left font-medium">Order#</th>
+                        <th class="px-4 py-3 text-left font-medium">Order Status</th>
+                        <th class="px-4 py-3 text-left font-medium">Ordrered on</th>
+                        <th class="px-4 py-3 text-left font-medium"></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="border-b border-light hover:bg-light transition">
+
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OrderNumber)</td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OrderStatus)</td>
+
+
+                            <td class="px-4 py-3">
+                                @(item.OrderDate.Date == DateTime.Today
+                                                            ? $"Today, {item.OrderDate:h:mm tt}"
+                                                            : item.OrderDate.ToString("d MMMM, h:mm tt"))
+                            </td>
+
+
+                            <td class="px-4 py-3 flex flex-col justify-end items-end   gap-2">
+                                <a asp-action="ConfirmPickup" asp-route-id="@item.ID"
+                                    class="bg-primary w-fit text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+                                    Confirm Pickup
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

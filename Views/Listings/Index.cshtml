@@ -1,85 +1,84 @@
 @model IEnumerable<TimelyTastes.Models.Listing>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listings Dashboard";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.VendorID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageData)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OriginalPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuantityAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableUntil)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VendorID)
-                </td>
-                <td>
-                    <img src="@Url.Action("GetImage", "Listings", new { id = item.Id })" alt="Listing Image"
-                        style="max-width:100px; max-height:100px;" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OriginalPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuantityAvailable)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AvailableFrom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AvailableUntil)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="min-h-screen bg-light text-dark font-sans p-10 ">
+    <div class="flex gap-3">
+        <a asp-action="ViewOrders" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+            View Orders
+        </a>
+        <a asp-action="Index" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+            Listings Dashboard
+        </a>
+
+    </div>
+    <div class="bg-white rounded-2xl shadow-lg p-6 mt-10">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+            <h1 class="text-3xl font-semibold text-dark mb-4 sm:mb-0">
+                Listings Dashboard
+            </h1>
+            <a asp-action="Create" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+                + Add New Listing
+            </a>
+        </div>
+
+        <div class="overflow-x-auto pt-10">
+            <table class="min-w-full border-collapse">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        @* <th class="px-4 py-3 text-left font-medium">Vendor ID</th> *@
+                        <th class="px-4 py-3 text-left font-medium">Image</th>
+                        <th class="px-4 py-3 text-left font-medium">Name</th>
+                        <th class="px-4 py-3 text-left font-medium">Description</th>
+                        <th class="px-4 py-3 text-left font-medium">Discount Price</th>
+                        <th class="px-4 py-3 text-left font-medium">Original Price</th>
+                        <th class="px-4 py-3 text-left font-medium">Quantity</th>
+                        <th class="px-4 py-3 text-left font-medium">Available From</th>
+                        <th class="px-4 py-3 text-left font-medium">Available Until</th>
+                        <th class="px-4 py-3 text-left font-medium">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="border-b border-light hover:bg-light transition">
+                            @* <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.VendorID)</td> *@
+                            <td class="px-4 py-3">
+                                <img src="@Url.Action("GetImage", "Listings", new { id = item.Id })" alt="Listing Image"
+                                    class="w-20 h-20 object-cover rounded-lg border-2 border-light" />
+                            </td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.DiscountPrice)</td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OriginalPrice)</td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.QuantityAvailable)</td>
+                            <td class="px-4 py-3">
+                                @(item.AvailableFrom.Date == DateTime.Today
+                                                            ? $"Today, {item.AvailableFrom:h:mm tt}"
+                                                            : item.AvailableFrom.ToString("d MMMM, h:mm tt"))
+                            </td>
+                            <td class="px-4 py-3">
+                                @(item.AvailableUntil.Date == DateTime.Today
+                                                            ? $"Today, {item.AvailableUntil:h:mm tt}"
+                                                            : item.AvailableUntil.ToString("d MMMM, h:mm tt"))
+                            </td>
+
+
+                            <td class="px-4 py-3 flex flex-col   gap-2">
+                                <a asp-action="Edit" asp-route-id="@item.Id"
+                                    class="text-[var(--accent)] hover:underline">Edit</a>
+
+                                <a asp-action="Delete" asp-route-id="@item.Id"
+                                    class="text-red-600 hover:underline">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

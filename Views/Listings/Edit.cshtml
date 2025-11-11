@@ -1,72 +1,98 @@
 @model TimelyTastes.Models.Listing
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Listing";
 }
 
-<h1>Edit</h1>
+<div class="min-h-screen bg-light text-dark font-sans py-10 px-6">
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+        <h1 class="text-3xl font-semibold text-dark mb-2">Edit Listing</h1>
+        <p class="text-dark mb-6">Update your listing details below.</p>
 
-<h4>Listing</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form enctype="multipart/form-data" asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form enctype="multipart/form-data" asp-action="Edit" class="space-y-5">
+            <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="VendorID" class="control-label"></label>
-                <input asp-for="VendorID" class="form-control" />
-                <span asp-validation-for="VendorID" class="text-danger"></span>
+
+            <!-- Vendor ID -->
+            @* <div>
+                <label asp-for="VendorID" class="block text-sm font-medium mb-1">Vendor ID</label>
+                <input asp-for="VendorID"
+                    class="w-full border border-[var(--light)] rounded-lg px-3 py-2 focus:ring-2 focus:ring-[var(--primary)] focus:outline-none" />
+                <span asp-validation-for="VendorID" class="text-red-600 text-sm"></span>
+            </div> *@
+
+            <!-- Image Upload -->
+            <div>
+                <label asp-for="ImageFile" class="block text-sm font-medium mb-1">Upload Image</label>
+                <input asp-for="ImageFile" type="file"
+                    class="w-full border border-light rounded-lg px-3 py-2 bg-light focus:ring-2 focus:ring-primary focus:outline-none" />
+                <span asp-validation-for="ImageFile" class="text-red-600 text-sm"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" type="file" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
+
+            <!-- Name -->
+            <div>
+                <label asp-for="Name" class="block text-sm font-medium mb-1">Name</label>
+                <input asp-for="Name"
+                    class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" />
+                <span asp-validation-for="Name" class="text-red-600 text-sm"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+
+            <!-- Description -->
+            <div>
+                <label asp-for="Description" class="block text-sm font-medium mb-1">Description</label>
+                <textarea asp-for="Description" rows="3"
+                    class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none"></textarea>
+                <span asp-validation-for="Description" class="text-red-600 text-sm"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+
+            <!-- Prices -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                    <label asp-for="DiscountPrice" class="block text-sm font-medium mb-1">Discount Price</label>
+                    <input asp-for="DiscountPrice"
+                        class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" />
+                    <span asp-validation-for="DiscountPrice" class="text-red-600 text-sm"></span>
+                </div>
+                <div>
+                    <label asp-for="OriginalPrice" class="block text-sm font-medium mb-1">Original Price</label>
+                    <input asp-for="OriginalPrice"
+                        class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" />
+                    <span asp-validation-for="OriginalPrice" class="text-red-600 text-sm"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DiscountPrice" class="control-label"></label>
-                <input asp-for="DiscountPrice" class="form-control" />
-                <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+
+            <!-- Quantity -->
+            <div>
+                <label asp-for="QuantityAvailable" class="block text-sm font-medium mb-1">Quantity Available</label>
+                <input asp-for="QuantityAvailable"
+                    class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" />
+                <span asp-validation-for="QuantityAvailable" class="text-red-600 text-sm"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OriginalPrice" class="control-label"></label>
-                <input asp-for="OriginalPrice" class="form-control" />
-                <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+
+            <!-- Availability Dates -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                    <label asp-for="AvailableFrom" class="block text-sm font-medium mb-1">Available From</label>
+                    <input asp-for="AvailableFrom" type="datetime-local"
+                        class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" />
+                    <span asp-validation-for="AvailableFrom" class="text-red-600 text-sm"></span>
+                </div>
+                <div>
+                    <label asp-for="AvailableUntil" class="block text-sm font-medium mb-1">Available Until</label>
+                    <input asp-for="AvailableUntil" type="datetime-local"
+                        class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none" />
+                    <span asp-validation-for="AvailableUntil" class="text-red-600 text-sm"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="QuantityAvailable" class="control-label"></label>
-                <input asp-for="QuantityAvailable" class="form-control" />
-                <span asp-validation-for="QuantityAvailable" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AvailableFrom" class="control-label"></label>
-                <input asp-for="AvailableFrom" class="form-control" />
-                <span asp-validation-for="AvailableFrom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AvailableUntil" class="control-label"></label>
-                <input asp-for="AvailableUntil" class="form-control" />
-                <span asp-validation-for="AvailableUntil" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <!-- Submit -->
+            <div class="pt-4 flex items-center gap-3">
+                <input type="submit" value="Save Changes"
+                    class="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700 transition cursor-pointer" />
+                <a asp-action="Index" class="text-dark hover:underline text-sm">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

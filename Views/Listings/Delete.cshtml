@@ -4,72 +4,77 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Listing</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VendorID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VendorID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageData)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageData)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiscountPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DiscountPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OriginalPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OriginalPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuantityAvailable)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QuantityAvailable)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AvailableFrom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AvailableFrom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AvailableUntil)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AvailableUntil)
-        </dd>
+<div class="bg-white p-8 rounded-2xl shadow-md border border-light max-w-2xl mx-auto ">
+    <h3 class=" text-lg font-semibold text-[var(--accent)] mb-4">Are you sure you want to delete this?</h3>
+    <hr class="border-[var(--light)] mb-6" />
+
+    <dl class="space-y-4 ">
+
+
+        <div>
+            <dd>
+                @if (Model.ImageData != null)
+                {
+                    <img src="data:image/*;base64,@Convert.ToBase64String(Model.ImageData)" alt="@Model.Name"
+                        class="w-32 h-32 object-cover rounded-lg border border-light" />
+                }
+                else
+                {
+                    <span class="text-gray-500 italic">No image available</span>
+                }
+            </dd>
+        </div>
+
+        <div>
+            <dd class="font-bold text-lg mb-1">@Html.DisplayFor(model => model.Name)</dd>
+        </div>
+
+        <div>
+            <dd class="text-gray-700">@Html.DisplayFor(model => model.Description)</dd>
+        </div>
+
+        <div>
+            <dt class="font-semibold text-[var(--dark)]">Discount Price</dt>
+            <dd class="text-[var(--primary)]">@Html.DisplayFor(model => model.DiscountPrice)</dd>
+        </div>
+
+        <div>
+            <dt class="font-semibold text-[var(--dark)]">Original Price</dt>
+            <dd class="text-[var(--primary)]">@Html.DisplayFor(model => model.OriginalPrice)</dd>
+        </div>
+
+        <div>
+            <dt class="font-semibold text-[var(--dark)]">Quantity Available</dt>
+            <dd class="text-[var(--primary)]">@Html.DisplayFor(model => model.QuantityAvailable)</dd>
+        </div>
+        <div class="flex flex-row gap-10">
+            <div>
+                <dt class="font-semibold text-[var(--dark)]">Available From</dt>
+                <dd class="text-[var(--primary)]">
+                    @(Model.AvailableFrom.Date == DateTime.Today
+                                        ? $"Today, {Model.AvailableFrom:h:mm tt}"
+                                        : Model.AvailableFrom.ToString("d MMMM, h:mm tt"))
+                </dd>
+            </div>
+
+            <div>
+                <dt class="font-semibold text-[var(--dark)]">Available Until</dt>
+                <dd class="text-[var(--primary)]">
+                    @(Model.AvailableUntil.Date == DateTime.Today
+                                        ? $"Today, {Model.AvailableUntil:h:mm tt}"
+                                        : Model.AvailableUntil.ToString("d MMMM, h:mm tt"))
+                </dd>
+            </div>
+        </div>
     </dl>
-    
-    <form asp-action="Delete">
+
+    <form asp-action="Delete" class="mt-8 flex gap-4">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete"
+            class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg shadow-sm transition duration-200 cursor-pointer" />
+        <a asp-action="Index"
+            class="bg-[var(--light)] hover:bg-[var(--secondary)] text-[var(--dark)] px-6 py-2 rounded-lg shadow-sm transition duration-200">Back
+            to List</a>
     </form>
 </div>
