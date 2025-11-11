@@ -1,17 +1,29 @@
 @model string
 
 <div class="min-h-screen flex items-center justify-center bg-light">
-    <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm">
-        <h1 class="text-2xl font-semibold text-primary mb-6 text-center">Confirm Pickup</h1>
+    <div class="bg-white p-8 pt-11 rounded-2xl shadow-lg w-full max-w-sm relative">
+        <!-- Back button on top-right -->
+        <a asp-action="ViewOrders" class="absolute top-4 right-4 text-sm text-dark
+         hover:underline">
+            Back
+        </a>
+
+        <h1 class="text-2xl font-semibold text-primary mb-6 text-center">
+            Confirm Pickup
+        </h1>
+
         @if (ViewData["ErrorMessage"] != null)
         {
             <p class="text-red-500 mb-4 text-center">@ViewData["ErrorMessage"]</p>
         }
+
         <form asp-action="ConfirmPickup" method="post" class="space-y-4">
             <input type="hidden" name="OrderId" value="@Model" />
 
             <div>
-                <label for="Pin" class="block text-sm font-medium mb-1">Enter Pickup PIN </label>
+                <label for="Pin" class="block text-sm font-medium mb-1">
+                    Enter Pickup PIN
+                </label>
                 <input type="text" name="Pin" id="Pin"
                     class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none"
                     required />

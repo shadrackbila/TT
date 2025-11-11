@@ -585,6 +585,14 @@ video {
   left: 0px;
 }
 
+.right-4 {
+  right: 1rem;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
 .m-10 {
   margin: 2.5rem;
 }
@@ -1287,12 +1295,20 @@ video {
   padding-top: 2.5rem;
 }
 
+.pt-11 {
+  padding-top: 2.75rem;
+}
+
 .text-left {
   text-align: left;
 }
 
 .text-center {
   text-align: center;
+}
+
+.text-end {
+  text-align: end;
 }
 
 .font-sans {

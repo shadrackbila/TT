@@ -205,11 +205,26 @@ namespace TimelyTastes.Controllers
             }
 
 
-            if (order.OTP != Pin)
-            {
-                ViewData["ErrorMessage"] = "Incorrect PIN. Please try again.";
-                return View((object)OrderId);
 
+
+            if (order.OTP != Pin || order.PinTrys >= 4)
+            {
+
+                if (order.PinTrys >= 4)
+                {
+                    ViewData["ErrorMessage"] = "Order blocked after 4 incorrect PIN attempts.";
+                    order.OrderStatus = "Pin Blocked(contact support)";
+
+                }
+                else
+                {
+                    ViewData["ErrorMessage"] = $"Incorrect PIN. You have {4 - order.PinTrys} attempts left.";
+                }
+
+                order.PinTrys++;
+                await _context.SaveChangesAsync();
+
+                return View((object)OrderId);
             }
 
             order.OrderStatus = "Pickup Confirmed";
@@ -221,7 +236,10 @@ namespace TimelyTastes.Controllers
         public async Task<IActionResult> ViewOrders()
         {
             //validation here
-            var list = await _context.Orders.ToListAsync();
+            var list = await _context.Orders.
+            Include(o => o.Listing).
+            Include(o => o.Vendor).
+            ToListAsync();
             return View(list);
         }
 

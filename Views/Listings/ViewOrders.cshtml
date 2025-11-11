@@ -29,6 +29,8 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th class="px-4 py-3 text-left font-medium">Order#</th>
+                        <th class="px-4 py-3 text-left font-medium">Item</th>
+                        <th class="px-4 py-3 text-left font-medium">Item Descripton</th>
                         <th class="px-4 py-3 text-left font-medium">Order Status</th>
                         <th class="px-4 py-3 text-left font-medium">Ordrered on</th>
                         <th class="px-4 py-3 text-left font-medium"></th>
@@ -40,6 +42,8 @@
                         <tr class="border-b border-light hover:bg-light transition">
 
                             <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OrderNumber)</td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.Listing.Name)</td>
+                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.Listing.Description)</td>
                             <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OrderStatus)</td>
 
 

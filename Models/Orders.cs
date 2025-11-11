@@ -9,8 +9,10 @@ namespace TimelyTastes.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }
-        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
+        public DateTime OrderDate { get; set; } = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "South Africa Standard Time");
+
         public string OrderNumber { get; set; } = "";
+        public int PinTrys { get; set; } = 0;
         public string OTP { get; set; } = "";
         public string OrderStatus { get; set; } = "Unknown";
 
