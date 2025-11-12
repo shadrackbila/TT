@@ -14,6 +14,7 @@ namespace TimelyTastes.Controllers
     {
         private readonly SQLiteDbContext _context;
 
+
         public ListingsController(SQLiteDbContext context)
         {
             _context = context;
@@ -22,7 +23,8 @@ namespace TimelyTastes.Controllers
         // GET: Listings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Listings.ToListAsync());
+            var accessToken = HttpContext.Session.GetString("AccessToken");
+            return View(await _context.Listings.FirstOrDefault(o => o.VendorID == accessToken).ToListAsync());
         }
 
         // GET: Listings/Details/5

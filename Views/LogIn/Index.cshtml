@@ -1,3 +1,5 @@
+@model TimelyTastes.Models.LogInModel
+
 <section class="bg-light min-h-screen flex items-center justify-center ">
     <div class="w-full max-w-md">
         <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
@@ -13,40 +15,40 @@
             </div>
 
             <!-- Form -->
-            <form class="p-6 space-y-6" asp-controller="Listings" asp-action="Index">
+            <form class="p-6 space-y-6" asp-action="RegisterUser" method="post">
                 <div class="space-y-4">
                     <div>
-                        <label for="email" class="block text-sm font-medium text-dark mb-1">Email</label>
+                        <label asp-for="Email" class="block text-sm font-medium text-dark mb-1">Email Address</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i data-feather="mail" class="text-dark/50"></i>
                             </div>
-                            <input type="email" id="email"
+                            <input type="email" asp-for="Email"
                                 class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"
                                 placeholder="your@email.com">
                         </div>
                     </div>
                     <div>
-                        <label for="password" class="block text-sm font-medium text-dark mb-1">Password</label>
+                        <label asp-for="Password" class="block text-sm font-medium text-dark mb-1">Password</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i data-feather="key" class="text-dark/50"></i>
                             </div>
-                            <input type="password" id="password"
+                            <input type="password" asp-for="Password"
                                 class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"
                                 placeholder="••••••••">
                         </div>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between">
+                @* <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <input id="remember-me" type="checkbox"
                             class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
                         <label for="remember-me" class="ml-2 block text-sm text-dark">Remember me</label>
                     </div>
                     <a href="#" class="text-sm text-accent hover:text-accent/80 font-medium">Forgot password?</a>
-                </div>
+                </div> *@
 
                 <button type="submit"
                     class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg transition flex items-center justify-center">
