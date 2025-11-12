@@ -53,5 +53,8 @@ namespace TimelyTastes.Models
         [NotMapped]
         public IFormFile LogoImageFile { get; set; }
 
+
+
+
     }
 }

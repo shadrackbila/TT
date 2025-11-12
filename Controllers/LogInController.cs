@@ -22,14 +22,22 @@ namespace TimelyTastes.Controllers
         public IActionResult Index()
         {
 
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (!string.IsNullOrEmpty(vendorId))
+            {
+
+
+                if (_context.Vendors.Any(v => v.VendorID == vendorId))
+                {
+                    return RedirectToAction("Index", "Listings");
+                }
+            }
+
             return View();
         }
 
-        public IActionResult Create()
-        {
 
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> RegisterUser(LogInModel vm)
@@ -69,6 +77,48 @@ namespace TimelyTastes.Controllers
             {
                 var firebaseex = JsonConvert.DeserializeObject<ErrorModel>(ex.RequestData);
                 ModelState.AddModelError(string.Empty, firebaseex.message);
+                return View("Index");
+
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogIn()
+        {
+            return View("Index");
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> LogIn(LogInModel vm)
+        {
+
+            try
+            {
+                var firebaseLink = await _firebaseAuth.SignInWithEmailAndPasswordAsync(vm.Email, vm.Password);
+
+                var accessToken = firebaseLink.FirebaseToken;
+                var vendorId = firebaseLink.User.LocalId;
+
+                if (!string.IsNullOrEmpty(accessToken))
+                {
+                    HttpContext.Session.SetString("AccessToken", accessToken);
+                    HttpContext.Session.SetString("VendorID", vendorId);
+
+
+                    if (_context.Vendors.Any(v => v.VendorID == vendorId))
+                    {
+                        return RedirectToAction("Index", "Listings");
+                    }
+                }
+
+                return View("Index");
+            }
+            catch (FirebaseAuthException ex)
+            {
+                var firebaseex = JsonConvert.DeserializeObject<ErrorModel>(ex.RequestData);
+                ViewBag.ErrorMessage = firebaseex?.message ?? "Unknown error";
                 return View("Index");
 
             }
