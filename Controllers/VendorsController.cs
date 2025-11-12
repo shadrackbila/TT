@@ -26,7 +26,7 @@ namespace TimelyTastes.Controllers
         }
 
         // GET: Vendors/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -98,7 +98,7 @@ namespace TimelyTastes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VendorID,LogoImageFile,Name,Biography,Address,ShopOwnerName")] Vendors vendors)
+        public async Task<IActionResult> Edit(string id, [Bind("VendorID,LogoImageFile,Name,Biography,Address,ShopOwnerName")] Vendors vendors)
 
         {
             if (id != vendors.VendorID)
@@ -150,7 +150,7 @@ namespace TimelyTastes.Controllers
         }
 
         // GET: Vendors/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -182,7 +182,7 @@ namespace TimelyTastes.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool VendorsExists(int id)
+        private bool VendorsExists(string id)
         {
             return _context.Vendors.Any(e => e.VendorID == id);
         }

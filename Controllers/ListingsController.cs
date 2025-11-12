@@ -23,9 +23,15 @@ namespace TimelyTastes.Controllers
         // GET: Listings
         public async Task<IActionResult> Index()
         {
-            var accessToken = HttpContext.Session.GetString("AccessToken");
-            return View(await _context.Listings.FirstOrDefault(o => o.VendorID == accessToken).ToListAsync());
+            string vendorId = CheckSession();
+
+            var listings = await _context.Listings
+                .Where(o => o.VendorID == vendorId)
+                .ToListAsync();
+
+            return View(listings);
         }
+
 
         // GET: Listings/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -60,6 +66,16 @@ namespace TimelyTastes.Controllers
         {
             if (ModelState.IsValid)
             {
+                var vendorId = HttpContext.Session.GetString("VendorID");
+
+                if (string.IsNullOrEmpty(vendorId))
+                {
+                    return RedirectToAction("Index", "LogIn");
+                }
+
+                listing.VendorID = vendorId;
+
+
                 // Handle file upload
                 if (listing.ImageFile != null && listing.ImageFile.Length > 0)
                 {
@@ -257,6 +273,26 @@ namespace TimelyTastes.Controllers
                 return NotFound();
 
             return File(listing.ImageData, "image/jpeg");
+        }
+
+        //Validates that there is a session with that vendor id otherwise it redirects to the log in page
+        public string CheckSession()
+        {
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (string.IsNullOrEmpty(vendorId))
+            {
+                RedirectToLogin();
+            }
+
+            return vendorId;
+        }
+
+        //helper of CheckSession() to return a string
+        public IActionResult RedirectToLogin()
+        {
+            return RedirectToAction("Index", "LogIn");
+
         }
 
     }

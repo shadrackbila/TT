@@ -20,7 +20,7 @@ namespace TimelyTastes.Repositories
     new Listing
     {
         Id = 1,
-        VendorID = 101,
+        VendorID = "101",
         Name = "Gourmet Pizza",
         Description = "Delicious hand-tossed pizza with fresh toppings.",
         DiscountPrice = 12.99m,
@@ -34,7 +34,7 @@ namespace TimelyTastes.Repositories
     new Listing
     {
         Id = 2,
-        VendorID = 102,
+        VendorID = "",
         Name = "Vegan Salad Bowl",
         Description = "A healthy mix of greens, quinoa, and chickpeas.",
         DiscountPrice = 8.50m,
@@ -48,7 +48,7 @@ namespace TimelyTastes.Repositories
     new Listing
     {
         Id = 3,
-        VendorID = 103,
+        VendorID = "103",
         Name = "Chocolate Cake Slice",
         Description = "Rich, moist chocolate cake with fudge frosting.",
         DiscountPrice = 4.75m,
@@ -67,7 +67,7 @@ namespace TimelyTastes.Repositories
 
  new Vendors
                 {
-                    VendorID = 1,
+                    VendorID = "1",
                     Logo = Array.Empty<byte>(), // placeholder
                     Name = "Tasty Bites",
                     Biography = "A small family-owned food shop specializing in local delicacies.",
@@ -83,7 +83,7 @@ namespace TimelyTastes.Repositories
                 },
                 new Vendors
                 {
-                    VendorID = 2,
+                    VendorID = "2",
                     Logo = Array.Empty<byte>(),
                     Name = "Savory Delights",
                     Biography = "Known for gourmet snacks and unique flavors.",
@@ -99,7 +99,7 @@ namespace TimelyTastes.Repositories
                 },
                 new Vendors
                 {
-                    VendorID = 3,
+                    VendorID = "3",
                     Logo = Array.Empty<byte>(),
                     Name = "Healthy Eats",
                     Biography = "Providing nutritious and balanced meals for health-conscious customers.",

@@ -11,7 +11,7 @@ namespace TimelyTastes.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The Listing VendorID is required")]
-        public int VendorID { get; set; }
+        public string VendorID { get; set; } = "";
 
         [Required(ErrorMessage = "The Item Image is required")]
         public byte[] ImageData { get; set; } = Array.Empty<byte>();

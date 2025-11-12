@@ -1,6 +1,7 @@
 using Firebase.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using TimelyTastes.Data;
 using TimelyTastes.Models;
 
 namespace TimelyTastes.Controllers
@@ -9,6 +10,14 @@ namespace TimelyTastes.Controllers
     {
         private const string API_KEY = "AIzaSyAgBBP_mB5WAJQC9sZMRAjoq7dNUxplKtU";
         FirebaseAuthProvider _firebaseAuth = new FirebaseAuthProvider(new FirebaseConfig(API_KEY));
+
+        private readonly SQLiteDbContext _context;
+
+
+        public LogInController(SQLiteDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
@@ -28,22 +37,33 @@ namespace TimelyTastes.Controllers
 
             try
             {
-
                 await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(vm.Email, vm.Password);
                 var firebaseLink = await _firebaseAuth.SignInWithEmailAndPasswordAsync(vm.Email, vm.Password);
-                string accessToken = firebaseLink.FirebaseToken;
 
-                if (accessToken != null)
+                var accessToken = firebaseLink.FirebaseToken;
+                var vendorId = firebaseLink.User.LocalId;
+
+                if (!string.IsNullOrEmpty(accessToken))
                 {
                     HttpContext.Session.SetString("AccessToken", accessToken);
+                    HttpContext.Session.SetString("VendorID", vendorId);
+
+
+                    if (!_context.Vendors.Any(v => v.VendorID == vendorId))
+                    {
+                        var vendor = new Vendors
+                        {
+                            VendorID = vendorId
+                        };
+
+                        _context.Vendors.Add(vendor);
+                        await _context.SaveChangesAsync();
+                    }
+
                     return RedirectToAction("Index", "Listings");
-
-                }
-                else
-                {
-                    return View("Index");
                 }
 
+                return View("Index");
             }
             catch (FirebaseAuthException ex)
             {
