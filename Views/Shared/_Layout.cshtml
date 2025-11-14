@@ -41,13 +41,35 @@
                         @* <a href="/businesses" class="text-dark hover:text-primary font-medium">Businesses</a> *@
                         <a href="/about" class="text-dark hover:text-primary font-medium">About</a>
                         <a href="/contact" class="text-dark hover:text-primary font-medium">Contact</a>
+
+                        @if (Context.Session.GetString("AccessToken") != null)
+                        {
+                            <a asp-action="Index" asp-controller="Listings"
+                                class="text-dark hover:text-primary font-medium">View Listings</a>
+                        }
+
                         <div class="flex items-center space-x-4">
-                            <a asp-controller="LogIn" asp-action="Index"
-                                class="px-4 py-2 rounded-md text-dark font-medium hover:bg-gray-100">Log
-                                In</a>
-                            <a href="/register"
-                                class="px-4 py-2 rounded-md bg-primary text-white font-medium hover:bg-green-600">Sign
-                                Up</a>
+
+
+                            @if (Context.Session.GetString("AccessToken") != null)
+                            {
+                                <!-- User IS logged in → show Sign Out -->
+                                <a asp-controller="LogIn" asp-action="Logout"
+                                    class="px-4 py-2 rounded-md bg-primary text-white font-medium hover:bg-green-600">
+                                    Log Out
+                                </a>
+                            }
+                            else
+                            {
+                                <!-- User NOT logged in → show Sign Up -->
+                                <a asp-controller="LogIn" asp-action="LogIn"
+                                    class="px-4 py-2 rounded-md text-dark font-medium hover:bg-gray-100">Log
+                                    In</a>
+                                <a asp-controller="SignUp" asp-action="Register"
+                                    class="px-4 py-2 rounded-md bg-primary text-white font-medium hover:bg-green-600">Sign
+                                    Up</a>
+                            }
+
                         </div>
                     </div>
                     <div class="md:hidden flex items-center">

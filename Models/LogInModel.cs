@@ -4,11 +4,11 @@ namespace TimelyTastes.Models
 {
     public class LogInModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please enter your Email Adress")]
         [EmailAddress]
         public string Email { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the passoword")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
     }

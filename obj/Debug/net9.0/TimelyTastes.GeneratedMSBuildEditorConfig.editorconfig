@@ -76,8 +76,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTGlzdGluZ3MvVmlld09yZGVycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/LogIn/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9nSW4vSW5kZXguY3NodG1s
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/LogIn/LogIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9nSW4vTG9nSW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Pay/Approved.cshtml]
@@ -118,6 +118,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/SignUp/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2lnblVwL1JlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Vendors/Create.cshtml]

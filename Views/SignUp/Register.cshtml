@@ -1,0 +1,98 @@
+@model TimelyTastes.Models.SignUpModel
+
+<section class="bg-light min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+            <!-- Header -->
+            <div class="bg-primary p-6 text-center">
+                <div class="flex justify-center mb-4">
+                    <div class="bg-white p-3 rounded-full">
+                        <i data-feather="user-plus" class="text-primary w-8 h-8"></i>
+                    </div>
+                </div>
+                <h1 class="text-2xl font-bold text-white">Create Account</h1>
+                <p class="text-white/90 mt-1">
+                    @(ViewBag.ErrorMessage != null ? ViewBag.ErrorMessage : "Sign up to get started")
+                </p>
+            </div>
+
+            <!-- Form -->
+            <form class="p-6 space-y-6" asp-action="Register" method="post">
+                <div class="space-y-4">
+
+
+
+                    <!-- Email -->
+                    <div>
+                        <label asp-for="Email" class="block text-sm font-medium text-dark mb-1">Email Address</label>
+                        <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i data-feather="mail" class="text-dark/50"></i>
+                            </div>
+                            <input type="email" asp-for="Email"
+                                class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"
+                                placeholder="your@email.com">
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+
+                        <label asp-for="Password" class="block text-sm font-medium text-dark mb-1">Password</label>
+                        <span asp-validation-for="Password" class="text-red-600 text-sm"></span>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i data-feather="key" class="text-dark/50"></i>
+                            </div>
+                            <input type="password" asp-for="Password"
+                                class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+
+                        <label asp-for="ConfirmPassword" class="block text-sm font-medium text-dark mb-1">Confirm
+                            Password</label>
+                        <span asp-validation-for="ConfirmPassword" class="text-red-600 text-sm"></span>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i data-feather="check-circle" class="text-dark/50"></i>
+                            </div>
+                            <input type="password" asp-for="ConfirmPassword"
+                                class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg transition flex items-center justify-center">
+                    <span>Create Account</span>
+                    <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="bg-light px-6 py-4 text-center">
+                <p class="text-dark/80 text-sm">
+                    Already have an account?
+                    <a asp-action="LogIn" asp-controller="LogIn"
+                        class="text-secondary font-medium hover:text-secondary/80">Log in</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="text-dark/60 text-sm">© 2024 Timely-Tastes . All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+</section>

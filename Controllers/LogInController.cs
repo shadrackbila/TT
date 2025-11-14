@@ -19,9 +19,11 @@ namespace TimelyTastes.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
 
+
+        [HttpGet]
+        public async Task<IActionResult> LogIn()
+        {
             var vendorId = HttpContext.Session.GetString("VendorID");
 
             if (!string.IsNullOrEmpty(vendorId))
@@ -35,57 +37,6 @@ namespace TimelyTastes.Controllers
             }
 
             return View();
-        }
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> RegisterUser(LogInModel vm)
-        {
-
-            try
-            {
-                await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(vm.Email, vm.Password);
-                var firebaseLink = await _firebaseAuth.SignInWithEmailAndPasswordAsync(vm.Email, vm.Password);
-
-                var accessToken = firebaseLink.FirebaseToken;
-                var vendorId = firebaseLink.User.LocalId;
-
-                if (!string.IsNullOrEmpty(accessToken))
-                {
-                    HttpContext.Session.SetString("AccessToken", accessToken);
-                    HttpContext.Session.SetString("VendorID", vendorId);
-
-
-                    if (!_context.Vendors.Any(v => v.VendorID == vendorId))
-                    {
-                        var vendor = new Vendors
-                        {
-                            VendorID = vendorId
-                        };
-
-                        _context.Vendors.Add(vendor);
-                        await _context.SaveChangesAsync();
-                    }
-
-                    return RedirectToAction("Index", "Listings");
-                }
-
-                return View("Index");
-            }
-            catch (FirebaseAuthException ex)
-            {
-                var firebaseex = JsonConvert.DeserializeObject<ErrorModel>(ex.RequestData);
-                ModelState.AddModelError(string.Empty, firebaseex.message);
-                return View("Index");
-
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> LogIn()
-        {
-            return View("Index");
 
         }
 
@@ -93,6 +44,8 @@ namespace TimelyTastes.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(LogInModel vm)
         {
+            if (!ModelState.IsValid)
+                return View(vm);
 
             try
             {
@@ -113,15 +66,24 @@ namespace TimelyTastes.Controllers
                     }
                 }
 
-                return View("Index");
+                return View(vm);
             }
             catch (FirebaseAuthException ex)
             {
                 var firebaseex = JsonConvert.DeserializeObject<ErrorModel>(ex.RequestData);
                 ViewBag.ErrorMessage = firebaseex?.message ?? "Unknown error";
-                return View("Index");
+                return View(vm);
 
             }
         }
+
+
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("LogIn");
+        }
+
     }
 }
