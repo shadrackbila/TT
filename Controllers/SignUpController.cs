@@ -49,18 +49,8 @@ namespace TimelyTastes.Controllers
                     HttpContext.Session.SetString("VendorID", vendorId);
 
 
-                    if (!_context.Vendors.Any(v => v.VendorID == vendorId))
-                    {
-                        var vendor = new Vendors
-                        {
-                            VendorID = vendorId
-                        };
+                    return RedirectToAction("Create", "Vendors");
 
-                        _context.Vendors.Add(vendor);
-                        await _context.SaveChangesAsync();
-                    }
-
-                    return RedirectToAction("Index", "Listings");
                 }
 
                 return View(vm);

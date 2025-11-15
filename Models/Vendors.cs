@@ -11,23 +11,30 @@ namespace TimelyTastes.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }
 
-        [Required]
         public string VendorID { get; set; } = "";
 
-        [Required]
+
         public byte[] Logo { get; set; } = Array.Empty<byte>();
 
-        [Required]
+        [Required(ErrorMessage = "Please enter your shop name.")]
+        [StringLength(100, ErrorMessage = "Shop name cannot exceed 100 characters.")]
         public string Name { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Please provide a short biography for your shop.")]
+        [StringLength(500, ErrorMessage = "Biography cannot exceed 500 characters.")]
         public string Biography { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Please enter your shop address.")]
+        [StringLength(200, ErrorMessage = "Address cannot exceed 200 characters.")]
         public string Address { get; set; } = "";
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the shop owner's name.")]
         public string ShopOwnerName { get; set; } = "";
+
+        [NotMapped]
+        [Required(ErrorMessage = "Please upload a logo for your shop.")]
+        public IFormFile LogoImageFile { get; set; }
+
 
         [Required]
         public int FoodQuality { get; set; } = 0;
@@ -50,8 +57,6 @@ namespace TimelyTastes.Models
         [Required]
         public int TotalReviews { get; set; } = 0;
 
-        [NotMapped]
-        public IFormFile LogoImageFile { get; set; }
 
 
 

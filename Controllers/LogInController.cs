@@ -60,10 +60,12 @@ namespace TimelyTastes.Controllers
                     HttpContext.Session.SetString("VendorID", vendorId);
 
 
-                    if (_context.Vendors.Any(v => v.VendorID == vendorId))
-                    {
-                        return RedirectToAction("Index", "Listings");
-                    }
+                    if (!_context.Vendors.Any(v => v.VendorID == vendorId))
+                        return RedirectToAction("Create", "Vendors");
+
+
+                    return RedirectToAction("Index", "Listings");
+
                 }
 
                 return View(vm);

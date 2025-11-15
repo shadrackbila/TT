@@ -59,6 +59,14 @@ namespace TimelyTastes.Controllers
         {
             if (ModelState.IsValid)
             {
+                var vendorId = HttpContext.Session.GetString("VendorID");
+
+                // 1. If no session, redirect
+                if (vendorId == null)
+                    return RedirectToAction("LogIn", "LogIn");
+
+
+
                 // Handle file upload
                 if (vendors.LogoImageFile != null && vendors.LogoImageFile.Length > 0)
                 {
@@ -69,9 +77,67 @@ namespace TimelyTastes.Controllers
                     }
                 }
 
-                _context.Add(vendors);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // 2. If session exists but vendor does not exist in DB, redirect
+
+                if (!_context.Vendors.Any(v => v.VendorID == vendorId))
+                {
+                    var vendor = new Vendors
+                    {
+                        VendorID = vendorId,
+                        Name = vendors.Name,
+                        Biography = vendors.Biography,
+                        Address = vendors.Address,
+                        ShopOwnerName = vendors.ShopOwnerName,
+                        FoodQuality = vendors.FoodQuality,
+                        FoodQuantity = vendors.FoodQuantity,
+                        FoodVariety = vendors.FoodVariety,
+                        CollectionExperience = vendors.CollectionExperience,
+                        Rating = vendors.Rating,
+                        SavedMeals = vendors.SavedMeals,
+                        TotalReviews = vendors.TotalReviews,
+                        Logo = vendors.Logo
+                    };
+
+
+                    _context.Vendors.Add(vendor);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "Listings");
+
+
+                }
+
+
+
+                // if (existingVendor != null)
+                // {
+                //     // UPDATE — copy all data EXCEPT VendorID
+                //     existingVendor.Name = vendors.Name;
+                //     existingVendor.Biography = vendors.Biography;
+                //     existingVendor.Address = vendors.Address;
+                //     existingVendor.ShopOwnerName = vendors.ShopOwnerName;
+                //     existingVendor.FoodQuality = vendors.FoodQuality;
+                //     existingVendor.FoodQuantity = vendors.FoodQuantity;
+                //     existingVendor.FoodVariety = vendors.FoodVariety;
+                //     existingVendor.CollectionExperience = vendors.CollectionExperience;
+                //     existingVendor.Rating = vendors.Rating;
+                //     existingVendor.SavedMeals = vendors.SavedMeals;
+                //     existingVendor.TotalReviews = vendors.TotalReviews;
+
+                //     // Update logo only if new file uploaded
+                //     if (vendors.Logo.Length > 0)
+                //         existingVendor.Logo = vendors.Logo;
+
+                //     _context.Update(existingVendor);
+                // }
+                // else
+                // {
+                //     return RedirectToAction("Register", "SignUp");
+
+                // }
+
+
+                return RedirectToAction("Index", "Listings");
+
             }
             return View(vendors);
         }
