@@ -7,12 +7,12 @@
                 <p class="text-xl mb-8">Connect with local businesses to save surplus food at a great price and
                     reduce food waste.</p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <input type="text" placeholder="Enter your location"
-                        class="px-4 py-3 rounded-md text-dark w-full sm:w-64">
-                    <button
-                        class="bg-accent hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-md transition duration-300">
+                    @* <input type="text" placeholder="Enter your location"
+                        class="px-4 py-3 rounded-md text-dark w-full sm:w-64"> *@
+                    <a asp-action="Index" asp-controller="Browse"
+                        class="bg-accent hover:bg-orange-600 text-white cursor-pointer font-bold px-6 py-3 rounded-md transition duration-300">
                         Find Food
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="md:w-1/2" data-aos="fade-left">
@@ -57,7 +57,7 @@
 </div>
 
 <!-- Featured Businesses -->
-<div class="bg-gray-50 py-16">
+@* <div class="bg-gray-50 py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center mb-10">
             <h2 class="text-3xl font-bold text-dark" data-aos="fade-right">Featured Businesses</h2>
@@ -174,7 +174,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 <!-- Impact Section 
     <div class="bg-primary text-white py-16">
@@ -198,7 +198,7 @@
     </div>-->
 
 <!-- Testimonials -->
-<div class="bg-white py-16">
+@* <div class="bg-white py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center text-dark mb-16" data-aos="fade-up">What Our Users Say</h2>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -255,7 +255,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 <!-- CTA Section -->
 <div class="bg-secondary py-16">
@@ -266,14 +266,14 @@
         </p>
         <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up"
             data-aos-delay="200">
-            <a href="/register"
+            <a asp-action="Register" asp-controller="SignUp"
                 class="bg-primary hover:bg-green-600 text-white font-bold px-8 py-3 rounded-md transition duration-300">
-                Sign Up as User
-            </a>
-            <a href="/business/register"
-                class="bg-dark hover:bg-gray-800 text-white font-bold px-8 py-3 rounded-md transition duration-300">
                 Join as Business
             </a>
+            @* <a asp-action="Register" asp-controller="SignUp"
+                class="bg-dark hover:bg-gray-800 text-white font-bold px-8 py-3 rounded-md transition duration-300">
+                Join as Business
+            </a> *@
         </div>
     </div>
 </div>

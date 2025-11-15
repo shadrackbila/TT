@@ -23,6 +23,7 @@ IDBInitializer seedDatabase)
     public IActionResult Index()
     {
         return View();
+
     }
 
     public IActionResult SeedDatabase()
