@@ -8,15 +8,17 @@ namespace TimelyTastes.Controllers
 {
     public class LogInController : Controller
     {
-        private const string API_KEY = "AIzaSyAgBBP_mB5WAJQC9sZMRAjoq7dNUxplKtU";
-        FirebaseAuthProvider _firebaseAuth = new FirebaseAuthProvider(new FirebaseConfig(API_KEY));
+        private string _apiKey;
+        FirebaseAuthProvider _firebaseAuth;
 
         private readonly SQLiteDbContext _context;
 
 
-        public LogInController(SQLiteDbContext context)
+        public LogInController(SQLiteDbContext context, IConfiguration config)
         {
+            _apiKey = config["ApiSettings:ApiKey"] ?? "";
             _context = context;
+            _firebaseAuth = new FirebaseAuthProvider(new FirebaseConfig(_apiKey));
         }
 
 
@@ -42,6 +44,7 @@ namespace TimelyTastes.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogIn(LogInModel vm)
         {
             if (!ModelState.IsValid)

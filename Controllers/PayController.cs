@@ -21,12 +21,21 @@ namespace TimelyTastes.Controllers
 
         private readonly IPayment _payment;
 
-        readonly string PayGateID = "10011072130";
-        readonly string PayGateKey = "secret";
+        readonly string PayGateID;
+        readonly string PayGateKey;
 
-        public PayController(SQLiteDbContext context)
+        readonly string _returnUrl;
+
+
+        public PayController(SQLiteDbContext context, IConfiguration config)
         {
             _context = context;
+
+            PayGateID = config["ApiSettings:MerchantId"] ?? "";
+            PayGateKey = config["ApiSettings:PassCode"] ?? "";
+
+            _returnUrl = config["returnUrl:url"] ?? "";
+
             _payment = new Payment(_context);
         }
 
@@ -34,6 +43,9 @@ namespace TimelyTastes.Controllers
         {
             return View();
         }
+
+
+
 
 
 
@@ -63,8 +75,22 @@ namespace TimelyTastes.Controllers
                 int amountInCents = (int)(listing.DiscountPrice * 100);
                 string paymentAmount = amountInCents.ToString();  // amount in cents
 
-                var random = new Random();
-                string paymentReference = random.Next(10000, 99999).ToString();
+
+                var orderNumbers = await _context.Orders
+                    .Select(o => o.OrderNumber)
+                    .ToListAsync();
+
+                int maxOrder = 0;
+                if (orderNumbers.Any())
+                {
+                    maxOrder = orderNumbers
+                        .Select(n => int.TryParse(n, out int number) ? number : 0)
+                        .Max();
+                }
+
+                int nextOrderNumber = maxOrder + 1;
+                string paymentReference = nextOrderNumber.ToString();
+
 
 
 
@@ -87,7 +113,7 @@ namespace TimelyTastes.Controllers
                 request.Add("REFERENCE", paymentReference); // Payment ref e.g ORDER NUMBER
                 request.Add("AMOUNT", paymentAmount);
                 request.Add("CURRENCY", "ZAR"); // South Africa
-                request.Add("RETURN_URL", "https://soaringly-suborbicular-erika.ngrok-free.dev/pay/completepayment");
+                request.Add("RETURN_URL", $"{_returnUrl}/pay/completepayment");
                 request.Add("TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 request.Add("LOCALE", "en-za");
                 request.Add("COUNTRY", "ZAF");

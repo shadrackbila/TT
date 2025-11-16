@@ -205,6 +205,7 @@ namespace TimelyTastes.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmPickup(string OrderId, string Pin)
         {
             if (OrderId == null)
