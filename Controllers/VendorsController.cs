@@ -22,7 +22,21 @@ namespace TimelyTastes.Controllers
         // GET: Vendors
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vendors.ToListAsync());
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            // 1. If no session, redirect
+            if (vendorId == null)
+                return RedirectToAction("LogIn", "LogIn");
+
+            var vendor = await _context.Vendors.FirstOrDefaultAsync(o => o.VendorID == vendorId);
+
+            if (vendor == null)
+            {
+                return NotFound();
+            }
+
+
+            return View("Details", vendor);
         }
 
         // GET: Vendors/Details/5
@@ -253,9 +267,9 @@ namespace TimelyTastes.Controllers
             return _context.Vendors.Any(e => e.VendorID == id);
         }
 
-        public async Task<IActionResult> GetImage(int id)
+        public async Task<IActionResult> GetImage(string id)
         {
-            var vendors = await _context.Vendors.FindAsync(id);
+            var vendors = await _context.Vendors.FirstOrDefaultAsync(o => o.VendorID == id);
             if (vendors == null || vendors.Logo == null)
                 return NotFound();
 

@@ -58,10 +58,38 @@
                             @if (Context.Session.GetString("AccessToken") != null)
                             {
                                 <!-- User IS logged in → show Sign Out -->
-                                <a asp-controller="LogIn" asp-action="Logout"
-                                    class="px-4 py-2 rounded-md bg-primary text-white font-medium hover:bg-green-600">
-                                    Log Out
-                                </a>
+                                <div class="relative group inline-block">
+                                    <!-- Trigger button -->
+                                    <div
+                                        class="flex items-center justify-center w-fit p-2 border border-black/70 rounded-full cursor-pointer">
+                                        <i data-feather="user" class="text-dark w-6 h-6"></i>
+                                    </div>
+
+
+
+                                    <!-- Dropdown menu -->
+                                    <ul
+                                        class="absolute right-0 top-6 mt-2 hidden w-40 flex-col bg-white rounded-lg shadow-lg border border-black/10 group-hover:flex z-50">
+                                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700">
+                                            <a asp-action="Index" asp-controller="Vendors">Analytics</a>
+
+                                        </li>
+                                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700">Edit
+                                            Account
+                                        </li>
+                                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-red-700">Delete
+                                            Account
+                                        </li>
+                                        <li class="px-4 py-2">
+                                            <a asp-controller="LogIn" asp-action="Logout"
+                                                class="block w-full text-center px-3 py-2 rounded-md bg-primary text-white text-sm font-medium hover:bg-green-600">
+                                                Log Out
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
                             }
                             else
                             {
@@ -153,6 +181,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        feather.replace();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
