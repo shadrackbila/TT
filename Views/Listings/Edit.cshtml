@@ -21,6 +21,8 @@
                 <span asp-validation-for="VendorID" class="text-red-600 text-sm"></span>
             </div> *@
 
+            <input asp-for="VendorID" hidden value="Unknown" />
+
             <!-- Image Upload -->
             <div>
                 <label asp-for="ImageFile" class="block text-sm font-medium mb-1">Upload Image</label>
@@ -94,9 +96,3 @@
         </form>
     </div>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

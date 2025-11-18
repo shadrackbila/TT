@@ -23,7 +23,13 @@ namespace TimelyTastes.Controllers
         // GET: Listings
         public async Task<IActionResult> Index()
         {
-            string vendorId = CheckSession();
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (string.IsNullOrEmpty(vendorId))
+            {
+                return RedirectToAction("LogIn", "LogIn");
+
+            }
 
             var listings = await _context.Listings
                 .Where(o => o.VendorID == vendorId)
@@ -36,6 +42,14 @@ namespace TimelyTastes.Controllers
         // GET: Listings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (string.IsNullOrEmpty(vendorId))
+            {
+                return RedirectToAction("LogIn", "LogIn");
+
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -47,6 +61,8 @@ namespace TimelyTastes.Controllers
             {
                 return NotFound();
             }
+
+
 
             return View(listing);
         }
@@ -70,7 +86,7 @@ namespace TimelyTastes.Controllers
 
                 if (string.IsNullOrEmpty(vendorId))
                 {
-                    return RedirectToAction("Index", "LogIn");
+                    return RedirectToAction("LogIn", "LogIn");
                 }
 
                 listing.VendorID = vendorId;
@@ -107,6 +123,7 @@ namespace TimelyTastes.Controllers
             {
                 return NotFound();
             }
+
             return View(listing);
         }
 
@@ -117,51 +134,61 @@ namespace TimelyTastes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,VendorID,Name,Description,DiscountPrice,OriginalPrice,QuantityAvailable,AvailableFrom,AvailableUntil,ImageFile")] Listing listing)
         {
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (string.IsNullOrEmpty(vendorId))
+            {
+                return RedirectToAction("LogIn", "LogIn");
+
+            }
+
             if (id != listing.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // Handle file upload
-                    if (listing.ImageFile != null && listing.ImageFile.Length > 0)
-                    {
-                        using (var ms = new MemoryStream())
-                        {
-                            await listing.ImageFile.CopyToAsync(ms);
-                            listing.ImageData = ms.ToArray();
-                        }
-                    }
-                    else
-                    {
-                        // Preserve existing image if no new file is uploaded
-                        var existingListing = await _context.Listings.AsNoTracking().FirstOrDefaultAsync(l => l.Id == id);
-                        if (existingListing != null)
-                        {
-                            listing.ImageData = existingListing.ImageData;
-                        }
-                    }
+            if (!ModelState.IsValid)
+                return View(listing);
 
-                    _context.Update(listing);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+            try
+            {
+                // Handle file upload
+                if (listing.ImageFile != null && listing.ImageFile.Length > 0)
                 {
-                    if (!ListingExists(listing.Id))
+                    using (var ms = new MemoryStream())
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        await listing.ImageFile.CopyToAsync(ms);
+                        listing.ImageData = ms.ToArray();
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    // Preserve existing image if no new file is uploaded
+                    var existingListing = await _context.Listings.AsNoTracking().FirstOrDefaultAsync(l => l.Id == id);
+                    if (existingListing != null)
+                    {
+                        listing.ImageData = existingListing.ImageData;
+                    }
+                }
+
+                listing.VendorID = vendorId;
+                _context.Update(listing);
+                await _context.SaveChangesAsync();
             }
-            return View(listing);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ListingExists(listing.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToAction("Index");
+
         }
 
 
@@ -188,6 +215,14 @@ namespace TimelyTastes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (string.IsNullOrEmpty(vendorId))
+            {
+                return RedirectToAction("LogIn", "LogIn");
+
+            }
+
             var listing = await _context.Listings.FindAsync(id);
             if (listing != null)
             {
@@ -208,6 +243,14 @@ namespace TimelyTastes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmPickup(string OrderId, string Pin)
         {
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (string.IsNullOrEmpty(vendorId))
+            {
+                return RedirectToAction("LogIn", "LogIn");
+
+            }
+
             if (OrderId == null)
             {
                 return NotFound();
@@ -254,13 +297,23 @@ namespace TimelyTastes.Controllers
 
         public async Task<IActionResult> ViewOrders()
         {
-            //validation here
-            var list = await _context.Orders.
-            Include(o => o.Listing).
-            Include(o => o.Vendor).
-            ToListAsync();
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (string.IsNullOrEmpty(vendorId))
+            {
+                return RedirectToAction("LogIn", "LogIn");
+
+            }
+
+            var list = await _context.Orders
+                .Where(o => o.Vendor.VendorID == vendorId)
+                .Include(o => o.Listing)
+                .Include(o => o.Vendor)
+                .ToListAsync();
+
             return View(list);
         }
+
 
         private bool ListingExists(int id)
         {
@@ -276,25 +329,6 @@ namespace TimelyTastes.Controllers
             return File(listing.ImageData, "image/jpeg");
         }
 
-        //Validates that there is a session with that vendor id otherwise it redirects to the log in page
-        public string CheckSession()
-        {
-            var vendorId = HttpContext.Session.GetString("VendorID");
-
-            if (string.IsNullOrEmpty(vendorId))
-            {
-                RedirectToLogin();
-            }
-
-            return vendorId;
-        }
-
-        //helper of CheckSession() to return a string
-        public IActionResult RedirectToLogin()
-        {
-            return RedirectToAction("Index", "LogIn");
-
-        }
 
     }
 }

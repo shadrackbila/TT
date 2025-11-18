@@ -157,18 +157,21 @@ namespace TimelyTastes.Controllers
         }
 
         // GET: Vendors/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var vendorId = HttpContext.Session.GetString("VendorID");
 
-            var vendors = await _context.Vendors.FindAsync(id);
+            // 1. If no session, redirect
+            if (vendorId == null)
+                return RedirectToAction("LogIn", "LogIn");
+
+            var vendors = await _context.Vendors.FirstOrDefaultAsync(o => o.VendorID == vendorId);
+
             if (vendors == null)
             {
                 return NotFound();
             }
+
             return View(vendors);
         }
 
