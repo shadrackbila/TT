@@ -306,10 +306,11 @@ namespace TimelyTastes.Controllers
             }
 
             var list = await _context.Orders
-                .Where(o => o.Vendor.VendorID == vendorId)
-                .Include(o => o.Listing)
-                .Include(o => o.Vendor)
-                .ToListAsync();
+             .Include(o => o.Listing)
+             .Include(o => o.Vendor)
+             .Where(o => o.Vendor != null && o.Vendor.VendorID == vendorId)
+             .ToListAsync();
+
 
             return View(list);
         }

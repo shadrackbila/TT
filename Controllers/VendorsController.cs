@@ -120,36 +120,6 @@ namespace TimelyTastes.Controllers
 
                 }
 
-
-
-                // if (existingVendor != null)
-                // {
-                //     // UPDATE — copy all data EXCEPT VendorID
-                //     existingVendor.Name = vendors.Name;
-                //     existingVendor.Biography = vendors.Biography;
-                //     existingVendor.Address = vendors.Address;
-                //     existingVendor.ShopOwnerName = vendors.ShopOwnerName;
-                //     existingVendor.FoodQuality = vendors.FoodQuality;
-                //     existingVendor.FoodQuantity = vendors.FoodQuantity;
-                //     existingVendor.FoodVariety = vendors.FoodVariety;
-                //     existingVendor.CollectionExperience = vendors.CollectionExperience;
-                //     existingVendor.Rating = vendors.Rating;
-                //     existingVendor.SavedMeals = vendors.SavedMeals;
-                //     existingVendor.TotalReviews = vendors.TotalReviews;
-
-                //     // Update logo only if new file uploaded
-                //     if (vendors.Logo.Length > 0)
-                //         existingVendor.Logo = vendors.Logo;
-
-                //     _context.Update(existingVendor);
-                // }
-                // else
-                // {
-                //     return RedirectToAction("Register", "SignUp");
-
-                // }
-
-
                 return RedirectToAction("Index", "Listings");
 
             }
@@ -181,44 +151,52 @@ namespace TimelyTastes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("VendorID,LogoImageFile,Name,Biography,Address,ShopOwnerName")] Vendors vendors)
+        public async Task<IActionResult> Edit(Vendors updateVendor)
 
         {
-            if (id != vendors.VendorID)
-            {
-                return NotFound();
-            }
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            // 1. If no session, redirect
+            if (vendorId == null)
+                return RedirectToAction("LogIn", "LogIn");
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var ExistingVendor = await _context.Vendors.FirstOrDefaultAsync(o => o.VendorID == vendorId);
+
+                    if (ExistingVendor == null)
+                    {
+                        return NotFound();
+                    }
+
+
                     // Handle file upload
-                    if (vendors.LogoImageFile != null && vendors.LogoImageFile.Length > 0)
+                    if (updateVendor.LogoImageFile != null && updateVendor.LogoImageFile.Length > 0)
                     {
                         using (var ms = new MemoryStream())
                         {
-                            await vendors.LogoImageFile.CopyToAsync(ms);
-                            vendors.Logo = ms.ToArray();
-                        }
-                    }
-                    else
-                    {
-                        // Preserve existing image if no new file is uploaded and hidden account stats
-                        var existingListing = await _context.Vendors.AsNoTracking().FirstOrDefaultAsync(l => l.VendorID == id);
-                        if (existingListing != null)
-                        {
-                            vendors.Logo = existingListing.Logo;
-
+                            await updateVendor.LogoImageFile.CopyToAsync(ms);
+                            ExistingVendor.Logo = ms.ToArray();
                         }
                     }
 
-                    _context.Update(vendors);
+                    ExistingVendor.ShopOwnerName = updateVendor.ShopOwnerName;
+                    ExistingVendor.Name = updateVendor.Name;
+                    ExistingVendor.Biography = updateVendor.Biography;
+                    ExistingVendor.Address = updateVendor.Address;
+
+
+                    _context.Update(ExistingVendor);
                     await _context.SaveChangesAsync();
+
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VendorsExists(vendors.VendorID))
+                    if (!VendorsExists(updateVendor.VendorID))
                     {
                         return NotFound();
                     }
@@ -229,19 +207,20 @@ namespace TimelyTastes.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(vendors);
+            return View(updateVendor);
         }
 
         // GET: Vendors/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            // 1. If no session, redirect
+            if (vendorId == null)
+                return RedirectToAction("LogIn", "LogIn");
 
             var vendors = await _context.Vendors
-                .FirstOrDefaultAsync(m => m.VendorID == id);
+                .FirstOrDefaultAsync(m => m.VendorID == vendorId);
             if (vendors == null)
             {
                 return NotFound();
@@ -253,9 +232,17 @@ namespace TimelyTastes.Controllers
         // POST: Vendors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed()
         {
-            var vendors = await _context.Vendors.FindAsync(id);
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            // 1. If no session, redirect
+            if (vendorId == null)
+                return RedirectToAction("LogIn", "LogIn");
+
+            var vendors = await _context.Vendors
+                .FirstOrDefaultAsync(m => m.VendorID == vendorId);
+
             if (vendors != null)
             {
                 _context.Vendors.Remove(vendors);

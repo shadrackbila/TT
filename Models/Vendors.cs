@@ -13,7 +13,7 @@ namespace TimelyTastes.Models
 
         public string VendorID { get; set; } = "";
 
-
+        [Required(ErrorMessage = "Please upload a logo for your shop.")]
         public byte[] Logo { get; set; } = Array.Empty<byte>();
 
         [Required(ErrorMessage = "Please enter your shop name.")]
@@ -32,8 +32,7 @@ namespace TimelyTastes.Models
         public string ShopOwnerName { get; set; } = "";
 
         [NotMapped]
-        [Required(ErrorMessage = "Please upload a logo for your shop.")]
-        public IFormFile LogoImageFile { get; set; }
+        public IFormFile? LogoImageFile { get; set; }
 
 
         [Required]

@@ -10,10 +10,11 @@ namespace TimelyTastes.Data
 
         }
 
-        public DbSet<Listing>? Listings { get; set; }
-        public DbSet<Vendors>? Vendors { get; set; }
-        public DbSet<Transaction>? Transactions { get; set; }
-        public DbSet<Orders>? Orders { get; set; }
+        public DbSet<Listing> Listings { get; set; } = default!;
+        public DbSet<Vendors> Vendors { get; set; } = default!;
+        public DbSet<Transaction> Transactions { get; set; } = default!;
+        public DbSet<Orders> Orders { get; set; } = default!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

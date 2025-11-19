@@ -5,10 +5,8 @@ namespace TimelyTastes.Models
     public class Browse
     {
 
-        public Listing listing { get; set; }
-        public Vendors vendors { get; set; }
-
-
+        public Listing listing { get; set; } = new Listing();
+        public Vendors vendors { get; set; } = new Vendors();
 
     }
 }

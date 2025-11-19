@@ -38,7 +38,7 @@ namespace TimelyTastes.Models
         public DateTime AvailableUntil { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
 
     }
 }

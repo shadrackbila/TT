@@ -46,8 +46,9 @@
                         <tr class="border-b border-light hover:bg-light transition">
 
                             <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OrderNumber)</td>
-                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.Listing.Name)</td>
-                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.Listing.Description)</td>
+                            <td class="px-4 py-3">@(item.Listing?.Name ?? "N/A")</td>
+                            <td class="px-4 py-3">@(item.Listing?.Description ?? "No description")</td>
+
                             <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OrderStatus)</td>
 
 

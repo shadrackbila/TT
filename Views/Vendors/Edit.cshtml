@@ -4,54 +4,93 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<section class="bg-light min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-2xl">
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
 
-<h4>Vendors</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="VendorID" />
-            <div class="form-group">
-                <label asp-for="LogoImageFile" class="control-label"></label>
-                <input asp-for="LogoImageFile" class="form-control" />
-                <span asp-validation-for="LogoImageFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Biography" class="control-label"></label>
-                <input asp-for="Biography" class="form-control" />
-                <span asp-validation-for="Biography" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShopOwnerName" class="control-label"></label>
-                <input asp-for="ShopOwnerName" class="form-control" />
-                <span asp-validation-for="ShopOwnerName" class="text-danger"></span>
+
+
+            <!-- Header -->
+            <div class="bg-primary p-6 text-center">
+                <div class="flex justify-center mb-4">
+                    <div class="bg-white p-3 rounded-full">
+                        <i data-feather="store" class="text-primary w-8 h-8"></i>
+                    </div>
+                </div>
+                <h1 class="text-2xl font-bold text-white">Edit Profile</h1>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <!-- Form -->
+            <form asp-action="Edit" enctype="multipart/form-data" method="post" class="p-6 space-y-6">
+
+                <!-- Logo Upload -->
+                <div>
+                    <label class="block text-sm font-medium text-dark mb-1">Shop Logo</label>
+                    <span asp-validation-for="LogoImageFile" class="text-red-600 text-sm"></span>
+
+                    <input type="file" asp-for="LogoImageFile"
+                        class="w-full py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" />
+                </div>
+
+                <!-- Shop Name -->
+                <div>
+
+                    <label asp-for="Name" class="block text-sm font-medium text-dark mb-1">Shop Name</label>
+                    <span asp-validation-for="Name" class="text-red-600 text-sm"></span>
+
+                    <input asp-for="Name"
+                        class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" />
+                </div>
+
+                <!-- Shop Owner -->
+                <div>
+
+                    <label asp-for="ShopOwnerName" class="block text-sm font-medium text-dark mb-1">Shop Owner
+                        Name</label>
+                    <span asp-validation-for="ShopOwnerName" class="text-red-600 text-sm"></span>
+
+                    <input asp-for="ShopOwnerName"
+                        class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" />
+                </div>
+
+                <!-- Biography -->
+                <div>
+
+                    <label asp-for="Biography" class="block text-sm font-medium text-dark mb-1">Biography</label>
+                    <span asp-validation-for="Biography" class="text-red-600 text-sm"></span>
+
+                    <textarea asp-for="Biography" rows="4"
+                        class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"></textarea>
+                </div>
+
+                <!-- Address -->
+                <div>
+
+                    <label asp-for="Address" class="block text-sm font-medium text-dark mb-1">Buisness Address</label>
+                    <span asp-validation-for="Address" class="text-red-600 text-sm"></span>
+
+                    <input asp-for="Address"
+                        class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" />
+                </div>
+
+
+                <!-- Submit Button -->
+                <button type="submit"
+                    class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg transition flex items-center justify-center">
+                    <span>Save</span>
+                    <i data-feather="save" class="ml-2 w-5 h-5"></i>
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="bg-light px-6 py-4 text-center">
+                <p class="text-dark/80 text-sm">© 2024 Timely-Tastes. All rights reserved.</p>
             </div>
-        </form>
+
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+    <script>
+        feather.replace();
+    </script>
+</section>
