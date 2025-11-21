@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Firebase.Auth;
+using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -237,6 +237,7 @@ namespace TimelyTastes.Controllers
         {
             var vendorId = HttpContext.Session.GetString("VendorID");
 
+
             // 1. If no session, redirect
             if (vendorId == null)
                 return RedirectToAction("LogIn", "LogIn");
@@ -247,11 +248,14 @@ namespace TimelyTastes.Controllers
             if (vendors != null)
             {
                 vendors.IsDeleted = true;
-                //  await FirebaseAuth.DefaultInstance.DeleteUserAsync(vendorId);
             }
+            HttpContext.Session.Remove("VendorID");
+            HttpContext.Session.Remove("AccessToken");
+
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("LogIn", "LogIn");
+
         }
 
         private bool VendorsExists(string id)

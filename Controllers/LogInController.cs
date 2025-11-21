@@ -1,5 +1,6 @@
 using Firebase.Auth;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TimelyTastes.Data;
 using TimelyTastes.Models;
@@ -62,10 +63,18 @@ namespace TimelyTastes.Controllers
                     HttpContext.Session.SetString("AccessToken", accessToken);
                     HttpContext.Session.SetString("VendorID", vendorId);
 
+                    var vendor = await _context.Vendors.FirstOrDefaultAsync(v => v.VendorID == vendorId);
 
-                    if (!_context.Vendors.Any(v => v.VendorID == vendorId))
+
+                    if (vendor == null)
                         return RedirectToAction("Create", "Vendors");
 
+                    if (vendor.IsDeleted)
+                    {
+                        HttpContext.Session.Remove("VendorID");
+                        HttpContext.Session.Remove("AccessToken");
+                        return RedirectToAction("Register", "SignUp");
+                    }
 
                     return RedirectToAction("Index", "Listings");
 

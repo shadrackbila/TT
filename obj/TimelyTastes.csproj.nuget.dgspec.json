@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.9, )"

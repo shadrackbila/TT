@@ -375,3 +375,11 @@
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/System.ServiceModel.dll
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/appsettings.Production.json
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/ean4xwvfo9-rs58qcyhkd.gz
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/FirebaseAdmin.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/Google.Api.Gax.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/Google.Api.Gax.Rest.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/Google.Apis.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/Google.Apis.Auth.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/Google.Apis.Core.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/System.Management.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/runtimes/win/lib/net7.0/System.Management.dll
