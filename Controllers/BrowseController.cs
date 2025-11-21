@@ -25,12 +25,12 @@ namespace TimelyTastes.Controllers
             var items = await (from v in _context.Vendors
                                join l in _context.Listings
                                on v.VendorID equals l.VendorID
-                               where l.QuantityAvailable > 0
+                               where l.QuantityAvailable > 0 && l.HideListing == false
                                select new Browse
                                {
                                    vendors = v,
                                    listing = l
-                               }).ToListAsync();
+                               }).AsNoTracking().ToListAsync();
 
             return View(items);
         }
@@ -47,12 +47,12 @@ namespace TimelyTastes.Controllers
             var orderDetails = await (from v in _context.Vendors
                                       join l in _context.Listings
                                       on v.VendorID equals l.VendorID
-                                      where l.QuantityAvailable > 0 && l.Id == id
+                                      where l.QuantityAvailable > 0 && l.Id == id && l.HideListing == false
                                       select new Browse
                                       {
                                           vendors = v,
                                           listing = l
-                                      }).FirstOrDefaultAsync();
+                                      }).AsNoTracking().FirstOrDefaultAsync();
 
             if (orderDetails == null)
             {

@@ -100,7 +100,7 @@ namespace TimelyTastes.Controllers
                     OrderDate = DateTime.UtcNow,
                     OrderNumber = paymentReference,
                     OTP = new Random().Next(1000, 9999).ToString(),
-                    OrderStatus = "Failed",
+                    OrderStatus = "newOrder",
                     Listing = listing,
                     Email = email,
                     Vendor = await _context.Vendors.FirstOrDefaultAsync(v => v.VendorID == listing.VendorID)

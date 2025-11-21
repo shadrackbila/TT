@@ -40,5 +40,8 @@ namespace TimelyTastes.Models
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
 
+
+        public bool HideListing { get; set; } = false;
+
     }
 }

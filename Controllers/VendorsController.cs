@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Firebase.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -245,7 +246,8 @@ namespace TimelyTastes.Controllers
 
             if (vendors != null)
             {
-                _context.Vendors.Remove(vendors);
+                vendors.IsDeleted = true;
+                //  await FirebaseAuth.DefaultInstance.DeleteUserAsync(vendorId);
             }
 
             await _context.SaveChangesAsync();

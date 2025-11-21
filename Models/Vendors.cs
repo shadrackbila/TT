@@ -56,6 +56,7 @@ namespace TimelyTastes.Models
         [Required]
         public int TotalReviews { get; set; } = 0;
 
+        public bool IsDeleted { get; set; } = false;
 
 
 

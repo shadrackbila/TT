@@ -32,7 +32,7 @@ namespace TimelyTastes.Controllers
             }
 
             var listings = await _context.Listings
-                .Where(o => o.VendorID == vendorId)
+                .Where(o => o.VendorID == vendorId && o.HideListing == false)
                 .ToListAsync();
 
             return View(listings);
@@ -223,11 +223,29 @@ namespace TimelyTastes.Controllers
 
             }
 
-            var listing = await _context.Listings.FindAsync(id);
-            if (listing != null)
+            var exists = await _context.Orders
+                .Include(o => o.Listing)
+                .Include(o => o.Vendor)
+                .FirstOrDefaultAsync(o => o.Listing.Id == id && o.Vendor.VendorID == vendorId);
+
+
+            if (exists != null)
             {
-                _context.Listings.Remove(listing);
+                exists.Listing.HideListing = true;
+
+                //LOGIC FOR Purchase refund
+
             }
+            else
+            {
+
+                var listing = await _context.Listings.FindAsync(id);
+                if (listing != null)
+                {
+                    _context.Listings.Remove(listing);
+                }
+            }
+
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -308,7 +326,7 @@ namespace TimelyTastes.Controllers
             var list = await _context.Orders
              .Include(o => o.Listing)
              .Include(o => o.Vendor)
-             .Where(o => o.Vendor != null && o.Vendor.VendorID == vendorId)
+             .Where(o => o.Vendor != null && o.Vendor.VendorID == vendorId && o.OrderStatus != "newOrder")
              .ToListAsync();
 
 
