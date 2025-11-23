@@ -14,10 +14,14 @@ namespace TimelyTastes.Controllers
     public class VendorsController : Controller
     {
         private readonly SQLiteDbContext _context;
+        private readonly string _apiKey;
 
-        public VendorsController(SQLiteDbContext context)
+
+        public VendorsController(SQLiteDbContext context, IConfiguration config)
         {
             _context = context;
+            _apiKey = config["ApiSettings:ApiKey"] ?? "";
+
         }
 
         // GET: Vendors
@@ -236,10 +240,12 @@ namespace TimelyTastes.Controllers
         public async Task<IActionResult> DeleteConfirmed()
         {
             var vendorId = HttpContext.Session.GetString("VendorID");
+            var AccessToken = HttpContext.Session.GetString("AccessToken");
+
 
 
             // 1. If no session, redirect
-            if (vendorId == null)
+            if (vendorId == null || AccessToken == null)
                 return RedirectToAction("LogIn", "LogIn");
 
             var vendors = await _context.Vendors
@@ -248,13 +254,35 @@ namespace TimelyTastes.Controllers
             if (vendors != null)
             {
                 vendors.IsDeleted = true;
+
+
+
+                using var httpClient = new HttpClient();
+
+                var payload = new
+                {
+                    idToken = AccessToken
+                };
+
+                var response = await httpClient.PostAsJsonAsync(
+                    $"https://identitytoolkit.googleapis.com/v1/accounts:delete?key={_apiKey}",
+                    payload
+                );
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Handle failure
+                }
+
+                HttpContext.Session.Remove("VendorID");
+                HttpContext.Session.Remove("AccessToken");
+                await _context.SaveChangesAsync();
+                return RedirectToAction("LogIn", "LogIn");
+
+
             }
-            HttpContext.Session.Remove("VendorID");
-            HttpContext.Session.Remove("AccessToken");
 
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction("LogIn", "LogIn");
+            return View("Index");
 
         }
 
