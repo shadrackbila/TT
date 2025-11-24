@@ -383,3 +383,4 @@
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/Google.Apis.Core.dll
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/System.Management.dll
 /Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/runtimes/win/lib/net7.0/System.Management.dll
+/Users/cash/Desktop/TT/TT/TimelyTastes/bin/Debug/net9.0/Firebase/serviceAccountKey.json
