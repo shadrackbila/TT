@@ -1,3 +1,5 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.EntityFrameworkCore;
 using TimelyTastes.Data;
 using TimelyTastes.Interfaces;
@@ -13,10 +15,25 @@ builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.IsEssential = true;
 
 
 });
+
+if (FirebaseApp.DefaultInstance == null)
+{
+    FirebaseApp.Create(new AppOptions()
+    {
+        Credential = GoogleCredential.FromFile("Firebase/serviceAccountKey.json")
+    });
+}
+
+
+
+// Register HttpClient factory
+builder.Services.AddHttpClient();
 
 builder.Services.AddDbContext<SQLiteDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IDBInitializer, DBInitializerRepo>();

@@ -14,13 +14,17 @@ namespace TimelyTastes.Controllers
     public class VendorsController : Controller
     {
         private readonly SQLiteDbContext _context;
-        private readonly string _apiKey;
+        private readonly ILogger<VendorsController> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
 
 
-        public VendorsController(SQLiteDbContext context, IConfiguration config)
+
+        public VendorsController(ILogger<VendorsController> logger, IHttpClientFactory httpClientFactory, SQLiteDbContext context)
         {
+
+            _logger = logger;
             _context = context;
-            _apiKey = config["ApiSettings:ApiKey"] ?? "";
+            _httpClientFactory = httpClientFactory;
 
         }
 
@@ -239,51 +243,69 @@ namespace TimelyTastes.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed()
         {
-            var vendorId = HttpContext.Session.GetString("VendorID");
-            var AccessToken = HttpContext.Session.GetString("AccessToken");
-
-
-
-            // 1. If no session, redirect
-            if (vendorId == null || AccessToken == null)
-                return RedirectToAction("LogIn", "LogIn");
-
-            var vendors = await _context.Vendors
-                .FirstOrDefaultAsync(m => m.VendorID == vendorId);
-
-            if (vendors != null)
+            try
             {
-                vendors.IsDeleted = true;
+                var vendorId = HttpContext.Session.GetString("VendorID");
+                var AccessToken = HttpContext.Session.GetString("AccessToken");
 
-
-
-                using var httpClient = new HttpClient();
-
-                var payload = new
+                // 1. If no session, redirect
+                if (string.IsNullOrEmpty(vendorId) || string.IsNullOrEmpty(AccessToken))
                 {
-                    idToken = AccessToken
-                };
-
-                var response = await httpClient.PostAsJsonAsync(
-                    $"https://identitytoolkit.googleapis.com/v1/accounts:delete?key={_apiKey}",
-                    payload
-                );
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    // Handle failure
+                    await ClearSensitiveDataAsync();
+                    return RedirectToAction("LogIn", "LogIn");
                 }
 
-                HttpContext.Session.Remove("VendorID");
-                HttpContext.Session.Remove("AccessToken");
-                await _context.SaveChangesAsync();
-                return RedirectToAction("LogIn", "LogIn");
 
 
+
+                var vendors = await _context.Vendors
+                    .FirstOrDefaultAsync(m => m.VendorID == vendorId);
+
+                if (vendors != null)
+                {
+                    var decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(AccessToken);
+                    if (decoded.Uid != vendors.VendorID)
+                        return Unauthorized();
+
+
+                    try
+                    {
+                        await FirebaseAuth.DefaultInstance.DeleteUserAsync(decoded.Uid);
+
+
+                        vendors.IsDeleted = true;
+                        await _context.SaveChangesAsync();
+                        await ClearSensitiveDataAsync();
+                        return RedirectToAction("LogIn", "LogIn");
+
+                    }
+                    catch (FirebaseAdmin.Auth.FirebaseAuthException ex)
+                    {
+
+                        _logger.LogError($"Vendor account delete failed: {ex.Message} ");
+                        Console.WriteLine($"Error deleting user: {ex.Message}");
+                        await ClearSensitiveDataAsync();
+
+                    }
+
+                }
+
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during account deletion");
+                await ClearSensitiveDataAsync();
+                return RedirectToAction("Error", "Home");
             }
 
-            return View("Index");
+        }
 
+        private async Task ClearSensitiveDataAsync()
+        {
+            HttpContext.Session.Remove("VendorID");
+            HttpContext.Session.Remove("AccessToken");
+            await HttpContext.Session.CommitAsync();
         }
 
         private bool VendorsExists(string id)
