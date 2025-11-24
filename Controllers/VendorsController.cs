@@ -276,7 +276,7 @@ namespace TimelyTastes.Controllers
                         vendors.IsDeleted = true;
                         await _context.SaveChangesAsync();
                         await ClearSensitiveDataAsync();
-                        return RedirectToAction("LogIn", "LogIn");
+                        return View("DeleteSuccess");
 
                     }
                     catch (FirebaseAdmin.Auth.FirebaseAuthException ex)
