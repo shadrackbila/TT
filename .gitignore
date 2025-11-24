@@ -1,2 +1,6 @@
-# Firebase Admin SDK key
+# Ignore Firebase Admin SDK key
 Firebase/serviceAccountKey.json
+
+# Ignore build output
+bin/
+obj/
