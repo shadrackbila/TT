@@ -285,6 +285,8 @@ namespace TimelyTastes.Controllers
                         _logger.LogError($"Vendor account delete failed: {ex.Message} ");
                         Console.WriteLine($"Error deleting user: {ex.Message}");
                         await ClearSensitiveDataAsync();
+                        return RedirectToAction("Error", "Home");
+
 
                     }
 

@@ -1,6 +1,504 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@* 
+
+
+Privacy Policy for Timely-Tastes
+
+Updated at: 24 November 2025
+
+Timely-Tastes ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how your
+personal information is collected, used, and disclosed by Timely-Tastes. This Privacy Policy applies to our website,
+timelytastes.co.za, and its associated subdomains (collectively, our "Service") alongside our mobile application. By
+accessing or using our Service, you signify that you have read, understood, and agree to our collection, storage, use,
+and disclosure of your personal information as described in this Privacy Policy and our Terms of Service.
+
+1. Information We Collect
+
+Personal Information You Provide:
+
+Account Information: Email address, password (hashed and encrypted)
+Order Information: Order details, order status, OTP verification codes
+Vendor Information: Shop name, owner name, address, biography, logo/images
+Payment Information: Transaction details through our secure payment processor (PayGate)
+Listing Information: Product images, descriptions, pricing, availability times
+Information Collected Automatically:
+
+Device information and IP addresses
+Browser type and version
+Usage patterns and interaction with our platform
+Order history and preferences
+Location data (for finding nearby vendors)
+2. How We Use Your Information
+
+We use the information we collect for the following purposes:
+
+To create and manage your account
+To process orders and facilitate food collections
+To verify your identity using OTP systems
+To process payments securely
+To connect customers with local food vendors
+To improve our platform and user experience
+To communicate order updates and service information
+To prevent fraud and ensure platform security
+To calculate vendor ratings and reviews
+To display available food listings with accurate timing
+3. Data We Process Based on Your Role
+
+For Customers:
+
+Email address
+Order history and preferences
+Transaction records
+OTP verification data
+Collection locations and times
+For Vendors:
+
+Business information (name, address, owner details)
+Shop logo and biography
+Food listing details and images
+Pricing and inventory information
+Performance ratings and reviews
+Sales and transaction data
+4. Payment Processing
+
+We use PayGate as our third-party payment processor. We do not store your full credit card details on our servers. All
+payment information is encrypted and processed securely through PayGate's compliant payment infrastructure.
+
+5. Data Storage and Security
+
+Location: Data is stored on secure servers located in South Africa
+Encryption: We use SSL encryption for all data transmissions
+Access Control: Strict access controls limit who can view your personal information
+OTP Security: One-time passwords are generated securely and have limited validity periods
+Vendor Images: Shop logos and food images are stored securely and only displayed as intended
+6. Data Retention
+
+We retain your personal information for as long as necessary to provide our services and fulfill the purposes described
+in this policy:
+
+Active Accounts: Data retained while your account remains active
+Order History: Maintained for 6 years for business records and customer service
+Vendor Information: Retained while vendors remain active on our platform
+Transaction Records: Kept for 5 years as required by South African financial regulations
+Inactive Accounts: Deleted after 2 years of inactivity
+7. Your Rights Under POPIA (Protection of Personal Information Act)
+
+As a South African company, we comply with POPIA and you have the right to:
+
+Access your personal information we hold
+Request correction of inaccurate information
+Object to processing of your personal information
+Request deletion of your personal information
+File a complaint with the Information Regulator
+8. Sharing of Information
+
+We may share your information with:
+
+Vendors: Necessary order information to fulfill your food collections
+Payment Processors: PayGate for transaction processing
+Service Providers: Hosting, analytics, and customer support services
+Legal Authorities: When required by South African law or legal process
+We do not sell your personal information to third parties.
+
+9. International Data Transfers
+
+While we primarily store data in South Africa, some service providers may process data internationally. We ensure
+adequate protection through contracts and security measures.
+
+10. Cookies and Tracking
+
+We use cookies and similar technologies to:
+
+Remember your login sessions
+Personalize your experience
+Analyze platform usage
+Prevent fraud
+11. Children's Privacy
+
+Our services are not directed to individuals under 18. We do not knowingly collect personal information from children.
+
+12. Vendor Responsibilities
+
+Vendors on our platform are responsible for:
+
+Ensuring they have lawful basis for processing customer data
+Maintaining accurate business information
+Securing any customer data they receive through orders
+Complying with POPIA requirements
+13. Changes to This Policy
+
+We may update this Privacy Policy periodically. We will notify you of significant changes through our platform or email.
+
+14. Contact Us
+
+If you have any questions about this Privacy Policy or your personal information, please contact us:
+
+Via Email: privacy@timelytastes.co.za
+Via Phone: [Your Contact Number]
+Via Address: [Your Physical Address in South Africa]
+Information Officer: [Name of Information Officer]
+For POPIA-related requests, you may also contact the South African Information Regulator.
+
+15. Governing Law
+
+This Privacy Policy is governed by the laws of South Africa, particularly the Protection of Personal Information Act
+(POPIA) No. 4 of 2013. *@
+
+
+
+
+
+
+
+
+<main class="mx-auto px-4 py-12 max-w-4xl">
+    <div class="rounded-xl shadow-lg overflow-hidden" style="background-color:white;">
+        <div class="p-6" style="background-color:#4CAF50;">
+            <h1 class="text-3xl font-bold text-white">Privacy Policy</h1>
+        </div>
+
+        <div class="p-6 md:p-8 space-y-8">
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4"></h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Timely-Tastes ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy
+                    explains how your
+                    personal information is collected, used, and disclosed by Timely-Tastes. This Privacy Policy applies
+                    to our website,
+                    <a href="/" class="text-blue-600 hover:underline">timelytastes.co.za</a>
+                    , and its associated subdomains (collectively, our "Service")
+                    alongside
+                    our mobile application. By
+                    accessing or using our Service, you signify that you have read, understood, and agree to our
+                    collection, storage, use,
+                    and disclosure of your personal information as described in this Privacy Policy and our Terms of
+                    Service.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">1. Information We Collect</h2>
+                <br />
+                <p class="text-gray-700 leading-relaxed">
+                    Personal Information You Provide:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Account Information: Email address, password</li>
+                    <li>Order Information: Order details, order status, OTP verification codes</li>
+                    <li>Vendor Information: Shop name, owner name, address, biography, logo/images</li>
+                    <li>Payment Information: Transaction details through our secure payment processor (PayGate)</li>
+                    <li>To gather analysis or valuable information for improvement</li>
+                    <li>Listing Information: Product images, descriptions, pricing, availability times</li>
+                    <li>Location data (for finding nearby vendors)</li>
+                </ul>
+                </p>
+            </section>
+
+            @* <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">2. Information We Collect</h2>
+                <div class="space-y-4">
+                    <div class="p-4 rounded-lg" style="background-color:#ECEFF1;">
+                        <h3 class="text-lg font-medium" style="color:#4CAF50;">Personal Information</h3>
+                        <p class="text-gray-700 mt-2">
+                            We may collect personally identifiable information such as your name, email address, phone
+                            number, and other contact details when you register or interact with our services.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-lg" style="background-color:#ECEFF1;">
+                        <h3 class="text-lg font-medium" style="color:#4CAF50;">Usage Data</h3>
+                        <p class="text-gray-700 mt-2">
+                            We automatically collect information about how you interact with our website, including IP
+                            addresses, browser type, pages visited, and time spent on pages.
+                        </p>
+                    </div>
+                </div>
+            </section> *@
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">2. How We Use Your Information
+                </h2>
+                <br />
+                <p class="text-gray-700 leading-relaxed">
+                    We use the information we collect for the following purposes:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>To create and manage your account</li>
+                    <li>To process orders and facilitate food collections</li>
+                    <li>To verify your identity using OTP systems</li>
+                    <li>To process payments securely</li>
+                    <li>To connect customers with local food vendors</li>
+                    <li>To improve our platform and user experience</li>
+                    <li>To communicate order updates and service information</li>
+                    <li>To prevent fraud and ensure platform security</li>
+                    <li>To calculate vendor ratings and reviews</li>
+                    <li>To display available food listings with accurate timing</li>
+
+                </ul>
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">3. Data We Process Based on Your
+                    Role
+                </h2>
+                <br />
+                <p class="text-gray-700 font-bold leading-relaxed">
+                    For Customers:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Email address</li>
+                    <li>Order history and preferences</li>
+                    <li>Transaction records</li>
+                    <li>OTP verification data</li>
+                    <li>Collection locations and times</li>
+                </ul>
+                </p>
+
+
+                <br />
+                <p class="text-gray-700 font-bold leading-relaxed">
+                    For Vendors:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Business information (name, address, owner details)</li>
+                    <li>Shop logo and biography</li>
+                    <li>Food listing details and images</li>
+                    <li>Pricing and inventory information</li>
+                    <li>Performance ratings and reviews</li>
+                    <li>Sales and transaction data</li>
+
+                </ul>
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">4. Payment Processing</h2>
+                <br />
+
+                <p class="text-gray-700 leading-relaxed">
+                    We use PayGate as our third-party payment processor. We do not store your full credit card details
+                    on our servers. All payment information is encrypted and processed securely through PayGate's
+                    compliant payment infrastructure.
+                </p>
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">5. Data Storage and Security
+                </h2>
+                <br />
+
+
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Location: Data is stored on secure servers located in South Africa</li>
+                    <li>Encryption: We use SSL encryption for our data transmissions</li>
+                    <li>Access Control: Strict access controls limit who can view your personal information</li>
+                    <li>OTP Security: One-time passwords are generated securely and have limited validity periods</li>
+                    <li>Vendor Images: Shop logos and food images are stored securely and only displayed as intended
+                    </li>
+
+                </ul>
+            </section>
+
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">6. Data Retention
+                </h2>
+                <br />
+
+                <p class="text-gray-700 leading-relaxed">
+                    We retain your personal information for as long as necessary to provide our services and fulfill the
+                    purposes described in this policy:
+                </p>
+                <br />
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-lg border-l-4" style="background-color:#FFF8E1; border-color:#FFC107;">
+                        <h3 class="text-lg font-medium" style="color:#263238;">Active Accounts:</h3>
+                        <p class="text-gray-700 mt-1 text-sm">
+                            Data retained while your account remains active
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-lg border-l-4" style="background-color:#FFEBEE; border-color:#FF5722;">
+                        <h3 class="text-lg font-medium" style="color:#263238;">Order History:</h3>
+                        <p class="text-gray-700 mt-1 text-sm">
+                            Maintained for 6 years for business records and customer service
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-lg border-l-4" style="background-color:#E8F5E9; border-color:#4CAF50;">
+                        <h3 class="text-lg font-medium" style="color:#263238;">Vendor Information:</h3>
+                        <p class="text-gray-700 mt-1 text-sm">
+                            Retained while vendors remain active on our platform
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-lg border-l-4" style="background-color:#CFD8DC; border-color:#263238;">
+                        <h3 class="text-lg font-medium" style="color:#263238;">Transaction Records:</h3>
+                        <p class="text-gray-700 mt-1 text-sm">
+                            Kept for 5 years as required by South African financial regulations
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-lg border-l-4" style="background-color:#e8f4f5; border-color:#4c96af;">
+                        <h3 class="text-lg font-medium" style="color:#263238;">Inactive Accounts:</h3>
+                        <p class="text-gray-700 mt-1 text-sm">
+                            Deleted after 2 years of inactivity
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">7. Your Rights Under POPIA
+                    (Protection of Personal Information Act)
+                </h2>
+                <br />
+                <p class="text-gray-700 leading-relaxed">
+                    As a South African company, we comply with POPIA and you have the right to:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Access your personal information we hold</li>
+                    <li>Request correction of inaccurate information</li>
+                    <li>Object to processing of your personal information</li>
+                    <li>Request deletion of your personal information</li>
+
+
+                </ul>
+                </p>
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">8. Sharing of Information
+                </h2>
+                <br />
+                <p class="text-gray-700 leading-relaxed">
+                    We may share your information with:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Vendors: Necessary order information to fulfill your food collections</li>
+                    <li>Payment Processors: PayGate for transaction processing</li>
+                    <li>Service Providers: Hosting, analytics, and customer support services</li>
+                    <li>Legal Authorities: When required by South African law or legal process</li>
+
+                </ul>
+                </p>
+                <br />
+                <p class="text-gray-700 leading-relaxed">
+                    We do not sell your personal information to third parties.</p>
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">9. International Data Transfers
+                </h2>
+                <p class="text-gray-700 leading-relaxed">
+                    While we primarily store data in South Africa, some service providers may process data
+                    internationally. We ensure adequate protection through contracts and security measures.
+                </p>
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">10. Cookies and Tracking
+                </h2>
+                <br />
+                <p class="text-gray-700 leading-relaxed">
+                    We use cookies and similar technologies to:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Remember your login sessions</li>
+                    <li>Personalize your experience</li>
+                    <li>Analyze platform usage</li>
+                    <li>Prevent fraud</li>
+
+                </ul>
+                </p>
+
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">11. Children's Privacy
+                </h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Our services are not directed to individuals under 18. We do not knowingly collect personal
+                    information from children.
+                </p>
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">12. Vendor Responsibilities
+                </h2>
+                <br />
+                <p class="text-gray-700 leading-relaxed">
+                    Vendors on our platform are responsible for:<br />
+                    <br />
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Ensuring they have lawful basis for processing customer data</li>
+                    <li>Maintaining accurate business information</li>
+                    <li>Securing any customer data they receive through orders</li>
+                    <li>Complying with POPIA requirements</li>
+
+                </ul>
+                </p>
+
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">13. Changes to This Policy
+                </h2>
+                <br />
+
+                <p class="text-gray-700 leading-relaxed">
+                    We may update this Privacy Policy periodically. We will notify you of significant changes through
+                    our platform or email.
+                </p>
+            </section>
+
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">14. Governing Law
+                </h2>
+                <br />
+
+                <p class="text-gray-700 leading-relaxed">
+                    This Privacy Policy is governed by the laws of South Africa, particularly the Protection of Personal
+                    Information Act
+                    (POPIA) No. 4 of 2013.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold" style="color:#263238;" class="mb-4">15. Contact Us</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    If you have any questions about this Privacy Policy, please contact us:
+                </p>
+                <div class="mt-4 flex items-center space-x-4">
+                    <i data-feather="mail" style="color:#4CAF50;"></i>
+                    <span>timelytastes.pty@gmail.com</span>
+                </div>
+                <div class="mt-2 flex items-center space-x-4">
+                    <i data-feather="phone" style="color:#4CAF50;"></i>
+                    <span>069 377 3451</span>
+                </div>
+            </section>
+
+
+
+
+            <hr />
+
+            <p class="text-gray-500 text-sm leading-relaxed italic">
+                By using Timely-Tastes, you acknowledge that you have read and understood this Privacy Policy and
+                consent to the collection and use of your personal information as described herein.
+
+            </p>
+        </div>
+    </div>
+</main>
+<script>feather.replace();</script>
