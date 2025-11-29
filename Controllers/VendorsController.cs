@@ -83,10 +83,18 @@ namespace TimelyTastes.Controllers
             if (ModelState.IsValid)
             {
                 var vendorId = HttpContext.Session.GetString("VendorID");
+                var AccessToken = HttpContext.Session.GetString("AccessToken");
+
+
+                var decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(AccessToken);
+                if (decoded.Uid != vendors.VendorID)
+                    return RedirectToAction("Error", "Home");
+
 
                 // 1. If no session, redirect
                 if (vendorId == null)
                     return RedirectToAction("LogIn", "LogIn");
+
 
 
 
