@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TimelyTastes.Validation.VerifyDateAndTimeAttribute;
+using TimelyTastes.Validation.VerifyImageAttribute;
+using TimelyTastes.Validation.VerifyPriceAttribute;
 
 namespace TimelyTastes.Models
 {
@@ -15,6 +17,8 @@ namespace TimelyTastes.Models
         public string VendorID { get; set; } = "";
 
         [Required(ErrorMessage = "The item Image is required")]
+        // Something wrong with the validation
+        // [VerifyImage("ImageFile", ErrorMessage = "Please upload an image")]
         public byte[] ImageData { get; set; } = Array.Empty<byte>();
 
         [Required(ErrorMessage = "The product Name is required")]
@@ -24,6 +28,7 @@ namespace TimelyTastes.Models
         public string Description { get; set; } = "";
 
         [Required(ErrorMessage = "The discount price is required")]
+        [VerifyPrice("OriginalPrice")]
         public decimal DiscountPrice { get; set; }
 
         [Required(ErrorMessage = "The original Price is required")]
