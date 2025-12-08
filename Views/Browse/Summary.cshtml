@@ -44,42 +44,47 @@
             <!-- Product Section -->
             <div class="p-6 border-b border-gray-200">
                 <div class="flex items-start">
-                     <img src="@Url.Action("GetImage", "Listings", new { id = Model.listing.Id })" alt="@($"{Model.listing.Name} image")"
-                       class="w-24 h-24 object-cover rounded-lg mr-4"/>
+                    <img src="@Url.Action("GetImage", "Listings", new { id = Model.listing.Id })"
+                        alt="@($"{Model.listing.Name} image")" class="w-24 h-24 object-cover rounded-lg mr-4" />
 
-                   
+
                     <div>
                         <h2 class="text-2xl font-bold text-dark">@($"{Model.listing.Name}")</h2>
-                        <div class="mt-1 flex items-center text-accent">
-                            <i data-feather="alert-circle" class="w-4 h-4 mr-1"></i>
-                            <span class="text-sm font-medium">@($"Only {Model.listing.QuantityAvailable} packs left!")</span>
-                        </div>
+
+                        @if (Model.listing.QuantityAvailable <= 5)
+                        {
+                            <div class="mt-1 flex items-center text-accent">
+                                <i data-feather="alert-circle" class="w-4 h-4 mr-1"></i>
+
+                                <span class="text-sm font-medium">@($"Only {Model.listing.QuantityAvailable} packs          left!")</span>
+                            </div>
+                        }
                     </div>
                 </div>
 
                 <!-- Details Grid -->
                 <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="bg-light p-4 rounded-lg">
-                      <div class="flex items-center text-dark">
-                      <i data-feather="clock" class="w-5 h-5 mr-2 text-secondary"></i>
-                      <span class="font-medium">Pickup Time</span>
-                  </div>
-                    <p class="mt-2 font-semibold">
-                       @(Model.listing.AvailableFrom.Date == DateTime.Today 
-                      ? $"Today, {Model.listing.AvailableFrom:h:mm tt}" 
-                     : Model.listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
-                     </p>
-                   </div>
+                    <div class="bg-light p-4 rounded-lg">
+                        <div class="flex items-center text-dark">
+                            <i data-feather="clock" class="w-5 h-5 mr-2 text-secondary"></i>
+                            <span class="font-medium">Pickup Time</span>
+                        </div>
+                        <p class="mt-2 font-semibold">
+                            @(Model.listing.AvailableFrom.Date == DateTime.Today
+                                                        ? $"Today, {Model.listing.AvailableFrom:h:mm tt}"
+                                                        : Model.listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
+                        </p>
+                    </div>
 
                     <div class="bg-light p-4 rounded-lg">
-                      <div class="flex items-center text-dark">
-                        <i data-feather="alert-triangle" class="w-5 h-5 mr-2 text-accent"></i>
-                         <span class="font-medium">Expires At</span>
-                            </div>
+                        <div class="flex items-center text-dark">
+                            <i data-feather="alert-triangle" class="w-5 h-5 mr-2 text-accent"></i>
+                            <span class="font-medium">Expires At</span>
+                        </div>
                         <p class="mt-2 font-semibold">
-                                   @(Model.listing.AvailableUntil.Date == DateTime.Today 
-                                  ? $"Today, {Model.listing.AvailableUntil:h:mm tt}" 
-                                       : Model.listing.AvailableUntil.ToString("d MMMM, h:mm tt"))
+                            @(Model.listing.AvailableUntil.Date == DateTime.Today
+                                                        ? $"Today, {Model.listing.AvailableUntil:h:mm tt}"
+                                                        : Model.listing.AvailableUntil.ToString("d MMMM, h:mm tt"))
                         </p>
                     </div>
 
@@ -98,9 +103,10 @@
                             <span class="font-medium">Pricing</span>
                         </div>
                         <div class="mt-2">
-                            <p class="line-through text-gray-500">@($"R{Model.listing.OriginalPrice}")</p>
-                            <p class="text-xl font-bold text-primary">@($"R{Model.listing.DiscountPrice}")<span
-                                    class="text-sm bg-accent text-white px-2 py-1 rounded-full ml-2 invisible">50% OFF</span></p>
+                            <p class="line-through text-gray-500">@($"R{Model.listing.OriginalPrice:F2}")</p>
+                            <p class="text-xl font-bold text-primary">@($"R{Model.listing.DiscountPrice:F2}")<span
+                                    class="text-sm bg-accent text-white px-2 py-1 rounded-full ml-2 invisible">50%
+                                    OFF</span></p>
                         </div>
                     </div>
                 </div>
@@ -125,40 +131,45 @@
 
             <!-- Terms & Conditions -->
             <div class="p-6">
-           
+
 
 
 
                 <form method="get" action="/pay/getrequest" class="w-full">
-                <input type="hidden" name="listingId" value="@Model.listing.Id" />
-                <input type="email"  name="email"  id="email"  placeholder="Enter your email" class="w-full border border-gray-300 rounded-lg p-3 mb-7 focus:outline-none focus:ring-2 focus:ring-primary" required/>
+                    <input type="hidden" name="listingId" value="@Model.listing.Id" />
+                    <input type="email" name="email" id="email" placeholder="Enter your email"
+                        class="w-full border border-gray-300 rounded-lg p-3 mb-7 focus:outline-none focus:ring-2 focus:ring-primary"
+                        required />
 
-                   <div class="flex items-start">
-                    <input type="checkbox" id="terms" class="mt-1 mr-3 h-5 w-5 text-primary rounded focus:ring-primary" required>
-                    <label for="terms" class="text-sm text-gray-700">
-                        I agree to the <a href="#" class="text-primary font-medium hover:underline">Terms and
-                            Conditions</a> and understand that my order cannot be modified after submission. I
-                        acknowledge the pickup expiration time and that late pickups may result in order cancellation.
-                    </label>
-                </div>
-     
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms"
+                            class="mt-1 mr-3 h-5 w-5 text-primary rounded focus:ring-primary" required>
+                        <label for="terms" class="text-sm text-gray-700">
+                            I agree to the <a asp-action="TermsOfService" asp-controller="Home"
+                                class="text-primary font-medium hover:underline">Terms and
+                                Conditions</a> and understand that my order cannot be modified after submission. I
+                            acknowledge the pickup expiration time and that late pickups may result in order
+                            cancellation.
+                        </label>
+                    </div>
 
 
-                <button type="submit"
-                class="w-full mt-6 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-[1.01] animate-pulse-slow"
-                @* onclick="return checkTerms();" *@>
-                @($"Continue - R{Model.listing.DiscountPrice}")
-                </button>
+
+                    <button type="submit"
+                        class="w-full mt-6 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300 transform hover:scale-[1.01] animate-pulse-slow"
+                        @* onclick="return checkTerms();" *@>
+                        @($"Continue - R{Model.listing.DiscountPrice:F2}")
+                    </button>
                 </form>
 
 
-     
+
             </div>
         </main>
     </div>
 
     <script>
-           @* function checkTerms() {
+        @* function checkTerms() {
            const termsChecked = document.getElementById('terms').checked;
         if (!termsChecked) {
             alert('Please agree to the Terms and Conditions before completing your purchase.');
@@ -167,7 +178,7 @@
         return true; 
     } *@
 
-        feather.replace();
+            feather.replace();
     </script>
 </body>
 

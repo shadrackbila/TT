@@ -265,11 +265,12 @@ namespace TimelyTastes.Controllers
                 }
 
                 var listing = await _context.Listings
-                    .FirstOrDefaultAsync(m => m.Id == Order.Listing.Id);
+                    .FirstOrDefaultAsync(m => m.Id == Order.Listing!.Id);
                 if (listing == null)
                 {
                     return NotFound();
                 }
+                Order.Vendor!.SavedMeals++;
                 Order.OrderStatus = "Active";
                 listing.QuantityAvailable = listing.QuantityAvailable - 1;
                 await _context.SaveChangesAsync();

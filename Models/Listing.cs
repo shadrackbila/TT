@@ -29,10 +29,21 @@ namespace TimelyTastes.Models
 
         [Required(ErrorMessage = "The discount price is required")]
         [VerifyPrice("OriginalPrice")]
-        public decimal DiscountPrice { get; set; }
+        public decimal DiscountPrice
+        {
+            get => _discountPrice;
+            set => _discountPrice = Math.Round(value, 2);
+        }
+        private decimal _discountPrice;
 
-        [Required(ErrorMessage = "The original Price is required")]
-        public decimal OriginalPrice { get; set; }
+        [Required(ErrorMessage = "The original price is required")]
+        public decimal OriginalPrice
+        {
+            get => _originalPrice;
+            set => _originalPrice = Math.Round(value, 2);
+        }
+        private decimal _originalPrice;
+
 
         [Required(ErrorMessage = "The quantity of bags available is required")]
         public int QuantityAvailable { get; set; }

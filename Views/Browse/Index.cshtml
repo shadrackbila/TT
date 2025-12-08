@@ -58,8 +58,9 @@
                         </p>
                         <div class="flex justify-between items-center">
                             <div class="flex justify-between items-center gap-2">
-                                <span class="text-lg font-bold text-primary">@($"R{meal.listing.DiscountPrice}")</span>
-                                <span class="text-sm text-gray-700 line-through"> @($"R{meal.listing.OriginalPrice}")</span>
+                                <span class="text-lg font-bold text-primary">@($"R{meal.listing.DiscountPrice:F2}")</span>
+                                <span class="text-sm text-gray-700 line-through">
+                                    @($"R{meal.listing.OriginalPrice:F2}")</span>
                             </div>
                             <a asp-controller="Browse" asp-action="Summary" asp-route-id="@meal.listing.Id"
                                 class="bg-primary hover:bg-green-600 text-white text-sm px-3 py-1 rounded-md transition duration-300">

@@ -25,7 +25,7 @@ namespace TimelyTastes.Controllers
             var items = await (from v in _context.Vendors
                                join l in _context.Listings
                                on v.VendorID equals l.VendorID
-                               where l.QuantityAvailable > 0 && l.HideListing == false
+                               where l.QuantityAvailable > 0 && l.HideListing == false && v.IsDeleted == false
                                select new Browse
                                {
                                    vendors = v,
