@@ -82,42 +82,46 @@
                                 <div>
                                     <div class="flex justify-between mb-1">
                                         <span class="text-sm font-medium text-gray-600">Food Quality</span>
-                                        <span class="text-sm font-medium text-gray-600">@Model.FoodQuality/5</span>
+                                        <span class="text-sm font-medium text-gray-600">@Html.DisplayFor(model =>
+                                                                                        model.FoodQuality)%</span>
                                     </div>
                                     <div class="w-full bg-light rounded-full h-2">
                                         <div class="bg-secondary h-2 rounded-full"
-                                            style="width: @(Model.FoodQuality * 20)%"></div>
+                                            style="width:@(Math.Min(Model.FoodQuantity, 100))%"></div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="flex justify-between mb-1">
                                         <span class="text-sm font-medium text-gray-600">Food Quantity</span>
-                                        <span class="text-sm font-medium text-gray-600">@Model.FoodQuantity/5</span>
+                                        <span class="text-sm font-medium text-gray-600">@Html.DisplayFor(model =>
+                                                                                        model.FoodQuantity)%</span>
                                     </div>
                                     <div class="w-full bg-light rounded-full h-2">
                                         <div class="bg-secondary h-2 rounded-full"
-                                            style="width: @(Model.FoodQuantity * 20)%"></div>
+                                            style="width: @(Math.Min(Model.FoodQuantity, 100))%"></div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="flex justify-between mb-1">
                                         <span class="text-sm font-medium text-gray-600">Food Variety</span>
-                                        <span class="text-sm font-medium text-gray-600">@Model.FoodVariety/5</span>
+                                        <span class="text-sm font-medium text-gray-600">@Html.DisplayFor(model =>
+                                                                                        model.FoodVariety)%</span>
                                     </div>
                                     <div class="w-full bg-light rounded-full h-2">
                                         <div class="bg-secondary h-2 rounded-full"
-                                            style="width: @(Model.FoodVariety * 20)%"></div>
+                                            style="width: @(Math.Min(Model.FoodVariety, 100))%"></div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="flex justify-between mb-1">
                                         <span class="text-sm font-medium text-gray-600">Collection Experience</span>
-                                        <span
-                                            class="text-sm font-medium text-gray-600">@Model.CollectionExperience/5</span>
+                                        <span class="text-sm font-medium text-gray-600">@Html.DisplayFor(model =>
+                                                                                        model.CollectionExperience)%
+                                        </span>
                                     </div>
                                     <div class="w-full bg-light rounded-full h-2">
                                         <div class="bg-secondary h-2 rounded-full"
-                                            style="width: @(Model.CollectionExperience * 20)%"></div>
+                                            style="width: @(Math.Min(Model.CollectionExperience, 100))%"></div>
                                     </div>
                                 </div>
                             </div>

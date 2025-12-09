@@ -69,6 +69,15 @@ namespace TimelyTastes.Controllers
         // GET: Vendors/Create
         public IActionResult Create()
         {
+            var vendorId = HttpContext.Session.GetString("VendorID");
+
+            if (vendorId == null)
+                return RedirectToAction("LogIn", "LogIn");
+
+            if (_context.Vendors.Any(v => v.VendorID == vendorId))
+                return RedirectToAction("Error", "Home");
+
+
             return View();
         }
 
@@ -86,17 +95,14 @@ namespace TimelyTastes.Controllers
                 var AccessToken = HttpContext.Session.GetString("AccessToken");
 
 
-                // var decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(AccessToken);
-                // if (decoded.Uid != vendors.VendorID)
-                //     return RedirectToAction("Error", "Home");
-
 
                 // 1. If no session, redirect
-                if (vendorId == null)
+                if (vendorId == null || AccessToken == null)
                     return RedirectToAction("LogIn", "LogIn");
 
-
-
+                var decoded = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(AccessToken);
+                if (decoded.Uid != vendorId)
+                    return RedirectToAction("Error", "Home");
 
                 // Handle file upload
                 if (vendors.LogoImageFile != null && vendors.LogoImageFile.Length > 0)
@@ -112,6 +118,17 @@ namespace TimelyTastes.Controllers
 
                 if (!_context.Vendors.Any(v => v.VendorID == vendorId))
                 {
+                    if (vendors.TotalReviews == 0)
+                        return RedirectToAction("Error", "Home");
+
+                    var overallPercent =
+                    (
+                        (vendors.FoodQuality / vendors.TotalReviews) * 100 +
+                        (vendors.FoodQuantity / vendors.TotalReviews) * 100 +
+                        (vendors.FoodVariety / vendors.TotalReviews) * 100 +
+                        (vendors.CollectionExperience / vendors.TotalReviews) * 100
+                    ) / 4;
+
                     var vendor = new Vendors
                     {
                         VendorID = vendorId,
@@ -119,11 +136,11 @@ namespace TimelyTastes.Controllers
                         Biography = vendors.Biography,
                         Address = vendors.Address,
                         ShopOwnerName = vendors.ShopOwnerName,
-                        FoodQuality = vendors.FoodQuality,
-                        FoodQuantity = vendors.FoodQuantity,
-                        FoodVariety = vendors.FoodVariety,
-                        CollectionExperience = vendors.CollectionExperience,
-                        Rating = vendors.Rating,
+                        FoodQuality = (vendors.FoodQuality / vendors.TotalReviews) * 100,
+                        FoodQuantity = (vendors.FoodQuantity / vendors.TotalReviews) * 100,
+                        FoodVariety = (vendors.FoodVariety / vendors.TotalReviews) * 100,
+                        CollectionExperience = (vendors.CollectionExperience / vendors.TotalReviews) * 100,
+                        Rating = (overallPercent / 100) * 5,
                         SavedMeals = vendors.SavedMeals,
                         TotalReviews = vendors.TotalReviews,
                         Logo = vendors.Logo
@@ -137,7 +154,8 @@ namespace TimelyTastes.Controllers
 
                 }
 
-                return RedirectToAction("Index", "Listings");
+                return RedirectToAction("Error", "Home");
+
 
             }
             return View(vendors);
