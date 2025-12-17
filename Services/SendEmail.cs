@@ -131,5 +131,86 @@ namespace TimelyTastes.Controllers
 
             return status;
         }
+
+
+
+        public bool RequestRating(Orders order)
+        {
+            bool status = false;
+
+            // Recipient info
+            string recipientEmail = !string.IsNullOrWhiteSpace(order.Email) ? order.Email : "timelytastes.PTY@gmail.com";
+            string senderAddress = "timelytastes.PTY@gmail.com";
+
+            // Email content
+            string subject = $"Your order has been collected — #{order.OrderNumber} ";
+
+
+            string body = $@"
+<div style=""max-width:600px; margin:0 auto; padding:24px; background-color:#ffffff; border-radius:12px; font-family:Arial, sans-serif;"">
+
+    <!-- Header -->
+    <h1 style=""font-size:24px; font-weight:bold; color:#111827; margin-bottom:12px;"">
+        Order Collected
+    </h1>
+
+    <p style=""font-size:14px; color:#374151; margin-bottom:20px;"">
+        Your order has been successfully collected. We’d love to hear your feedback to help us improve your experience.
+    </p>
+
+   
+
+    <!-- CTA -->
+    <a href=""https://your-site.com/rate-order""
+       style=""display:block; text-align:center; background-color:#4CAF50; color:#ffffff; padding:14px 0;
+              border-radius:8px; font-weight:bold; text-decoration:none; font-size:16px;"">
+        Rate Your Order
+    </a>
+
+    <!-- Footer -->
+    <div style=""text-align:center; font-size:12px; color:#6b7280; margin-top:20px;"">
+        Need help?
+        <a href=""https://your-site.com/contact""
+           style=""color:#4CAF50; text-decoration:none; font-weight:bold;"">
+            Contact Us
+        </a>
+    </div>
+
+</div>";
+
+
+
+
+            // SMTP setup - kefz uahx cjxf fsqu
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential(senderAddress, "kefz uahx cjxf fsqu"),
+                EnableSsl = true
+            };
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(senderAddress);
+            mailMessage.To.Add(recipientEmail);
+            mailMessage.Subject = subject;
+            mailMessage.Body = body;
+            mailMessage.IsBodyHtml = true;
+
+
+
+
+            try
+            {
+                client.Send(mailMessage);
+                Console.WriteLine("Confirmation email sent successfully!");
+                status = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error sending email: " + ex.Message);
+                status = false;
+            }
+
+            return status;
+        }
     }
 }

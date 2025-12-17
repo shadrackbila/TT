@@ -36,19 +36,19 @@ namespace TimelyTastes.Models
 
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public double FoodQuality { get; set; } = 0;
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public double FoodQuantity { get; set; } = 0;
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public double FoodVariety { get; set; } = 0;
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:F2}")]
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public double CollectionExperience { get; set; } = 0;
 
         [Required]

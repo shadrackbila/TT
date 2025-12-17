@@ -339,6 +339,8 @@ namespace TimelyTastes.Controllers
             {
                 ISendEmail em = new Email();
                 em.SendEmail(order);
+
+
                 TempData["sendEmail"] = false;
             }
 

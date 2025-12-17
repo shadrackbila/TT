@@ -118,16 +118,7 @@ namespace TimelyTastes.Controllers
 
                 if (!_context.Vendors.Any(v => v.VendorID == vendorId))
                 {
-                    if (vendors.TotalReviews == 0)
-                        return RedirectToAction("Error", "Home");
 
-                    var overallPercent =
-                    (
-                        (vendors.FoodQuality / vendors.TotalReviews) * 100 +
-                        (vendors.FoodQuantity / vendors.TotalReviews) * 100 +
-                        (vendors.FoodVariety / vendors.TotalReviews) * 100 +
-                        (vendors.CollectionExperience / vendors.TotalReviews) * 100
-                    ) / 4;
 
                     var vendor = new Vendors
                     {
@@ -136,11 +127,11 @@ namespace TimelyTastes.Controllers
                         Biography = vendors.Biography,
                         Address = vendors.Address,
                         ShopOwnerName = vendors.ShopOwnerName,
-                        FoodQuality = (vendors.FoodQuality / vendors.TotalReviews) * 100,
-                        FoodQuantity = (vendors.FoodQuantity / vendors.TotalReviews) * 100,
-                        FoodVariety = (vendors.FoodVariety / vendors.TotalReviews) * 100,
-                        CollectionExperience = (vendors.CollectionExperience / vendors.TotalReviews) * 100,
-                        Rating = (overallPercent / 100) * 5,
+                        FoodQuality = vendors.FoodQuality,
+                        FoodQuantity = vendors.FoodQuantity,
+                        FoodVariety = vendors.FoodVariety,
+                        CollectionExperience = vendors.CollectionExperience,
+                        Rating = vendors.Rating,
                         SavedMeals = vendors.SavedMeals,
                         TotalReviews = vendors.TotalReviews,
                         Logo = vendors.Logo

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TimelyTastes.Data;
 using TimelyTastes.Models;
+using TimelyTastes.Services;
 
 namespace TimelyTastes.Controllers
 {
@@ -310,10 +311,15 @@ namespace TimelyTastes.Controllers
                 return View((object)OrderId);
             }
 
+
+            ISendEmail em = new Email();
+            em.RequestRating(order);
+
             order.OrderStatus = "Pickup Confirmed";
             await _context.SaveChangesAsync();
 
-            return View();
+
+            return View("Success");
         }
 
         public async Task<IActionResult> ViewOrders()

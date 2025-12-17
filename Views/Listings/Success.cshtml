@@ -1,0 +1,87 @@
+@* @model string
+
+<div class="min-h-screen flex items-center justify-center bg-light">
+    <div class="bg-white p-8 pt-11 rounded-2xl shadow-lg w-full max-w-sm relative">
+        <!-- Back button on top-right -->
+        <a asp-action="ViewOrders" class="absolute top-4 right-4 text-sm text-dark
+         hover:underline">
+            Back
+        </a>
+
+        <h1 class="text-2xl font-semibold text-primary mb-6 text-center">
+            Confirm Pickup
+        </h1>
+
+        @if (ViewData["ErrorMessage"] != null)
+        {
+            <p class="text-red-500 mb-4 text-center">@ViewData["ErrorMessage"]</p>
+        }
+
+        <form asp-action="ConfirmPickup" method="post" class="space-y-4">
+            <input type="hidden" name="OrderId" value="@Model" />
+
+            <div>
+                <label for="Pin" class="block text-sm font-medium mb-1">
+                    Enter Pickup PIN
+                </label>
+                <input type="text" name="Pin" id="Pin"
+                    class="w-full border border-light rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none"
+                    required />
+            </div>
+
+            <button type="submit"
+                class="w-full bg-primary text-white font-medium px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                Confirm Pickup
+            </button>
+        </form>
+    </div>
+</div>
+
+
+ *@
+
+
+
+
+<section class="bg-light min-h-screen flex items-center justify-center ">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+            <!-- Header -->
+            <div class="bg-primary p-6 text-center">
+                <div class="flex justify-center mb-4">
+                    <div class="bg-white p-3 rounded-full">
+                        <i data-feather="check-circle" class="text-primary w-8 h-8"></i>
+                    </div>
+                </div>
+                <h1 class="text-2xl font-bold text-white">Success</h1>
+                <p class="text-white/90 mt-1">
+
+                </p>
+
+            </div>
+
+
+            <!-- Footer -->
+            <div class="bg-light px-6 py-4 text-center">
+                <p class="text-dark/80 text-sm">
+
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <p class="text-dark/60 text-sm"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('click', redirect);
+        document.addEventListener('touchstart', redirect);
+
+        function redirect() {
+            window.location.href = '/Listings/ViewOrders';
+        }
+
+        feather.replace();
+    </script>
+</section>
