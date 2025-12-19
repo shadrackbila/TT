@@ -8,6 +8,21 @@ namespace TimelyTastes.Controllers
 {
     public class Email : ISendEmail
     {
+
+        private readonly string _returnUrl;
+        public Email()
+        {
+            _returnUrl = "";
+
+        }
+        public Email(IConfiguration config)
+        {
+            if (string.IsNullOrWhiteSpace(config["returnUrl:url"]))
+                throw new ArgumentException("Return URL is not configured.");
+
+            _returnUrl = config["returnUrl:url"]!.TrimEnd('/');
+        }
+
         public bool SendEmail(Orders order)
         {
             bool status = false;
@@ -134,9 +149,12 @@ namespace TimelyTastes.Controllers
 
 
 
-        public bool RequestRating(Orders order)
+        public bool RequestRating(Orders order, RatingInvitation invitation)
         {
             bool status = false;
+
+            // Generate the rating link
+            var ratingLink = $"{_returnUrl}/Ratings/Rate?token={invitation.Token}";
 
             // Recipient info
             string recipientEmail = !string.IsNullOrWhiteSpace(order.Email) ? order.Email : "timelytastes.PTY@gmail.com";
@@ -161,7 +179,7 @@ namespace TimelyTastes.Controllers
    
 
     <!-- CTA -->
-    <a href=""https://your-site.com/rate-order""
+    <a href=""{ratingLink}""
        style=""display:block; text-align:center; background-color:#4CAF50; color:#ffffff; padding:14px 0;
               border-radius:8px; font-weight:bold; text-decoration:none; font-size:16px;"">
         Rate Your Order
@@ -170,7 +188,7 @@ namespace TimelyTastes.Controllers
     <!-- Footer -->
     <div style=""text-align:center; font-size:12px; color:#6b7280; margin-top:20px;"">
         Need help?
-        <a href=""https://your-site.com/contact""
+        <a href=""{ratingLink}""
            style=""color:#4CAF50; text-decoration:none; font-weight:bold;"">
             Contact Us
         </a>
@@ -201,7 +219,7 @@ namespace TimelyTastes.Controllers
             try
             {
                 client.Send(mailMessage);
-                Console.WriteLine("Confirmation email sent successfully!");
+                Console.WriteLine("Collection email sent successfully!");
                 status = true;
             }
             catch (Exception ex)

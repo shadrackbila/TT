@@ -124,6 +124,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGF5L1VzZXJDYW5jZWxsZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/RatingInvitation/Rate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmF0aW5nSW52aXRhdGlvbi9SYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/cash/Desktop/TT/TT/TimelyTastes/Views/RatingInvitation/ThankYou.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmF0aW5nSW52aXRhdGlvbi9UaGFua1lvdS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/cash/Desktop/TT/TT/TimelyTastes/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

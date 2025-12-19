@@ -1,0 +1,209 @@
+@* @model TimelyTastes.Models.RatingInvitation
+@{
+    ViewData["Title"] = "Rate " + ViewBag.VendorName;
+}
+
+<h2>Rate @ViewBag.VendorName</h2>
+
+<form asp-action="Submit" method="post">
+    <input type="hidden" name="token" value="@ViewBag.Token" />
+
+    <div class="form-group">
+        <label>Food Quality:</label>
+        <select name="FoodQualityRating" class="form-control" required>
+            <option value="">Select rating (1-5)</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Food Quantity:</label>
+        <select name="FoodQuantityRating" class="form-control" required>
+            <option value="">Select rating (1-5)</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Food Variety:</label>
+        <select name="FoodVarietyRating" class="form-control" required>
+            <option value="">Select rating (1-5)</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Collection Experience:</label>
+        <select name="CollectionExperienceRating" class="form-control" required>
+            <option value="">Select rating (1-5)</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Comments (optional):</label>
+        <textarea name="Comment" class="form-control" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Rating</button>
+</form> *@
+
+
+
+
+<custom-header></custom-header>
+
+<main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">
+        <h1 class="text-3xl font-bold text-dark mb-6">Rate Your Food Experience</h1>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Rating Form -->
+            <div class="space-y-6">
+                <form asp-controller="RatingInvitation" asp-action="Submit" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="token" value="@ViewBag.Token" />
+
+                    <input type="hidden" name="FoodQuantityRating" id="quantity-input" />
+                    <input type="hidden" name="FoodQualityRating" id="quality-input" />
+                    <input type="hidden" name="FoodVarietyRating" id="variety-input" />
+                    <input type="hidden" name="CollectionExperienceRating" id="experience-input" />
+                    <input type="hidden" name="Comments" id="comments-input" />
+
+                    <!-- Food Quantity -->
+                    <div
+                        class="p-6 bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5">
+                        <label for="quantity" class="block font-semibold text-gray-800 mb-3">
+                            Food Quantity
+                        </label>
+
+                        <div class="flex items-center gap-3">
+                            <input id="quantity" type="range" min="1" max="5" value="3"
+                                oninput="document.getElementById('quantity-value').textContent = this.value"
+                                class="w-full h-2 rounded-full appearance-none bg-gray-300 accent-orange-500 cursor-pointer" />
+
+                            <span id="quantity-value"
+                                class="min-w-[2rem] text-center font-bold text-orange-600 bg-white border border-gray-200 rounded-md px-2 py-1">
+                                3
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Food Quality -->
+                    <div
+                        class="p-6 bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5">
+                        <label for="quality" class="block font-semibold text-gray-800 mb-3">
+                            Food Quality
+                        </label>
+
+                        <div class="flex items-center gap-3">
+                            <input id="quality" type="range" min="1" max="5" value="3"
+                                oninput="document.getElementById('quality-value').textContent = this.value"
+                                class="w-full h-2 rounded-full appearance-none bg-gray-300 accent-orange-500 cursor-pointer" />
+
+                            <span id="quality-value"
+                                class="min-w-[2rem] text-center font-bold text-orange-600 bg-white border border-gray-200 rounded-md px-2 py-1">
+                                3
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Food Variety -->
+                    <div
+                        class="p-6 bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5">
+                        <label for="variety" class="block font-semibold text-gray-800 mb-3">
+                            Food Variety
+                        </label>
+
+                        <div class="flex items-center gap-3">
+                            <input id="variety" type="range" min="1" max="5" value="3"
+                                oninput="document.getElementById('variety-value').textContent = this.value"
+                                class="w-full h-2 rounded-full appearance-none bg-gray-300 accent-orange-500 cursor-pointer" />
+
+                            <span id="variety-value"
+                                class="min-w-[2rem] text-center font-bold text-orange-600 bg-white border border-gray-200 rounded-md px-2 py-1">
+                                3
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Collection Experience -->
+                    <div
+                        class="p-6 bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5">
+                        <label for="experience" class="block font-semibold text-gray-800 mb-3">
+                            Collection Experience
+                        </label>
+
+                        <div class="flex items-center gap-3">
+                            <input id="experience" type="range" min="1" max="5" value="3"
+                                oninput="document.getElementById('experience-value').textContent = this.value"
+                                class="w-full h-2 rounded-full appearance-none bg-gray-300 accent-orange-500 cursor-pointer" />
+
+                            <span id="experience-value"
+                                class="min-w-[2rem] text-center font-bold text-orange-600 bg-white border border-gray-200 rounded-md px-2 py-1">
+                                3
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div
+                        class="p-6 bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 hover:bg-gray-100">
+                        <label for="comments" class="block font-semibold text-gray-800 mb-3">
+                            Additional Comments (optional)
+                        </label>
+
+                        <textarea id="comments" rows="4" placeholder="Share any feedback..."
+                            class="w-full rounded-lg border border-gray-300 p-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none"></textarea>
+                    </div>
+
+
+
+
+
+
+
+
+                    <!-- Submit -->
+                    <button id="submit-rating"
+                        class="w-full bg-primary hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center">
+                        <i data-feather="check-circle" class="mr-2"></i>
+                        Submit Rating
+                    </button>
+                </form>
+
+
+            </div>
+
+
+            <!-- Radar Chart -->
+            <div class="flex items-center justify-center">
+                <canvas id="radar-chart" width="300" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</main>
+
+<custom-footer></custom-footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/js/script.js"></script>
+<script>feather.replace();</script>

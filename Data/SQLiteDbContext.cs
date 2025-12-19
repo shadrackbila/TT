@@ -15,6 +15,8 @@ namespace TimelyTastes.Data
         public DbSet<Transaction> Transactions { get; set; } = default!;
         public DbSet<Orders> Orders { get; set; } = default!;
 
+        public DbSet<RatingInvitation> RatingInvitations { get; set; } = default!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,8 @@ namespace TimelyTastes.Data
             modelBuilder.Entity<Vendors>().ToTable("Vendor");
             modelBuilder.Entity<Transaction>().ToTable("Transactions");
             modelBuilder.Entity<Orders>().ToTable("Orders");
+            modelBuilder.Entity<RatingInvitation>().ToTable("RatingInvitations");
+
 
         }
     }

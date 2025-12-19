@@ -15,12 +15,17 @@ namespace TimelyTastes.Controllers
     public class ListingsController : Controller
     {
         private readonly SQLiteDbContext _context;
+        private readonly IConfiguration _config;
 
 
-        public ListingsController(SQLiteDbContext context)
+        public ListingsController(SQLiteDbContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
+
         }
+
+
 
         // GET: Listings
         public async Task<IActionResult> Index()
@@ -280,8 +285,10 @@ namespace TimelyTastes.Controllers
 
             Guid id = new Guid(OrderId);
 
+
+
             var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.ID == id);
+               .FirstOrDefaultAsync(m => m.ID == id);
 
             if (order == null)
             {
@@ -312,8 +319,10 @@ namespace TimelyTastes.Controllers
             }
 
 
-            ISendEmail em = new Email();
-            em.RequestRating(order);
+            var success = await SendRatingInvitation(order);
+
+            if (!success)
+                return RedirectToAction("Error", "Home");
 
             order.OrderStatus = "Pickup Confirmed";
             await _context.SaveChangesAsync();
@@ -355,6 +364,33 @@ namespace TimelyTastes.Controllers
                 return NotFound();
 
             return File(listing.ImageData, "image/jpeg");
+        }
+
+
+        public async Task<bool> SendRatingInvitation(Orders order)
+        {
+
+            if (order == null)
+                return false;
+
+            var invitation = new RatingInvitation
+            {
+                VendorId = order.ID,
+
+                Token = Guid.NewGuid().ToString(),
+                ExpiresAt = DateTime.UtcNow.AddDays(30)
+            };
+
+            _context.RatingInvitations.Add(invitation);
+            await _context.SaveChangesAsync();
+
+
+            // Send email
+            ISendEmail em = new Email(_config);
+            em.RequestRating(order, invitation);
+
+
+            return true;
         }
 
 

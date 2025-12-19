@@ -6,6 +6,6 @@ namespace TimelyTastes.Services
     {
         bool SendEmail(Orders order);
 
-        bool RequestRating(Orders order);
+        bool RequestRating(Orders order, RatingInvitation invitation);
     }
 }
