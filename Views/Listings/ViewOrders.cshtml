@@ -49,7 +49,10 @@
                             <td class="px-4 py-3">@(item.Listing?.Name ?? "N/A")</td>
                             <td class="px-4 py-3">@(item.Listing?.Description ?? "No description")</td>
 
-                            <td class="px-4 py-3">@Html.DisplayFor(modelItem => item.OrderStatus)</td>
+                            <td
+                                class="px-4 py-3 @(item.OrderStatus == "Active" ? "text-green-600" :
+                                                                                                                                                            item.OrderStatus == "Pickup Confirmed" ? "text-blue-600" : "text-red-600")">
+                                @Html.DisplayFor(modelItem => item.OrderStatus)</td>
 
 
                             <td class="px-4 py-3">
@@ -60,10 +63,13 @@
 
 
                             <td class="px-4 py-3 flex flex-col justify-end items-end   gap-2">
-                                <a asp-action="ConfirmPickup" asp-route-id="@item.ID"
-                                    class="bg-primary w-fit text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
-                                    Confirm Pickup
-                                </a>
+                                @if (item.OrderStatus == "Active")
+                                {
+                                    <a asp-action="ConfirmPickup" asp-route-id="@item.ID"
+                                        class="bg-primary w-fit text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
+                                        Confirm Pickup
+                                    </a>
+                                }
                             </td>
                         </tr>
                     }

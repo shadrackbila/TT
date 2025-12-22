@@ -286,7 +286,6 @@
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/scopedcss/bundle/TimelyTastes.styles.css
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/scopedcss/projectbundle/TimelyTastes.bundle.scp.css
-/Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/i2kwawhrwf-61n19gt1b8.gz
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/bsihti3nrj-xtxxf3hu2r.gz
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/yhffgroela-bqjiyaj88i.gz
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/21ijntnqqt-c2jlpeoesf.gz
@@ -385,3 +384,5 @@
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/ean4xwvfo9-anoy88fybg.gz
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/9jz4eceu3b-sujpbfrzi9.gz
 /Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/cyjfas7yr1-iiwyi2ha9t.gz
+/Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/i2kwawhrwf-6pdr2df1zd.gz
+/Users/cash/Desktop/TT/TT/TimelyTastes/obj/Debug/net9.0/compressed/x5s4pg9cwj-61n19gt1b8.gz

@@ -20,7 +20,7 @@
 
 
                         @{
-                            // Round rating to nearest whole star (or use Math.Floor if you prefer)
+                            // Round rating to nearest whole star (or use Math.Floor)
                             int stars = (int)Math.Round(meal.vendors.Rating);
 
                             if (stars < 0) stars = 0;
@@ -36,17 +36,17 @@
                                     <i data-feather="star"
                                         class="w-4 h-4 @(i <= stars ? "text-yellow-400 fill-current" : "text-gray-400")"></i>
                                 }
+                            </div>
+
+                            <span class="text-gray-600 text-sm ml-1">@meal.vendors.TotalReviews reviews</span>
                         </div>
 
-                        <span class="text-gray-600 text-sm ml-1">@meal.vendors.TotalReviews reviews</span>
-                    </div>
 
-
-                    <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.QuantityAvailable} Packs Left") </p>
-                    <p class="text-gray-600 text-sm mb-3">Pickup from :
-                        @(meal.listing.AvailableFrom.Date == DateTime.Today
-                                                ? $"Today, {meal.listing.AvailableFrom:h:mm tt}"
-                                                : meal.listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
+                        <p class="text-gray-600 text-sm mb-3">@($"{meal.listing.QuantityAvailable} Packs Left") </p>
+                        <p class="text-gray-600 text-sm mb-3">Pickup from :
+                            @(meal.listing.AvailableFrom.Date == DateTime.Today
+                                                    ? $"Today, {meal.listing.AvailableFrom:h:mm tt}"
+                                                    : meal.listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
                         </p>
 
                         <p class="text-gray-600 text-sm mb-3">Offer Expires :

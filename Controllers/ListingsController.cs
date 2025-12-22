@@ -345,6 +345,7 @@ namespace TimelyTastes.Controllers
              .Include(o => o.Listing)
              .Include(o => o.Vendor)
              .Where(o => o.Vendor != null && o.Vendor.VendorID == vendorId && o.OrderStatus != "newOrder")
+             .OrderBy(o => o.OrderStatus == "Active" ? 0 : 1)
              .ToListAsync();
 
 

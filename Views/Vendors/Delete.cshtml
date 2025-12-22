@@ -44,10 +44,18 @@
                         <h2 class="text-xl font-bold text-dark">@Model.Name</h2>
                         <div class="flex items-center justify-center mt-2">
                             <div class="flex text-yellow-400">
+
+                                @{
+                                    int stars = (int)Math.Round(Model.Rating);
+
+                                    if (stars < 0) stars = 0;
+
+                                    if (stars > 5) stars = 5;
+                                }
                                 @for (int i = 0; i < 5; i++)
                                 {
-                                    <i data-feather="@(i < Model.Rating ? "star" : "star")"
-                                        class="@(i < Model.Rating ? "fill-current" : "")"></i>
+                                    <i data-feather="@(i < stars ? "star" : "star")"
+                                        class="@(i < stars ? "fill-current" : "")"></i>
                                 }
                             </div>
                             <span class="ml-2 text-gray-600">(@Model.TotalReviews reviews)</span>
