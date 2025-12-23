@@ -69,7 +69,7 @@
                     <label asp-for="Address" class="block text-sm font-medium text-dark mb-1">Buisness Address</label>
                     <span asp-validation-for="Address" class="text-red-600 text-sm"></span>
 
-                    <input asp-for="Address"
+                    <input id="autocomplete" asp-for="Address"
                         class="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" />
                 </div>
 
@@ -90,7 +90,28 @@
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
+
         feather.replace();
+
+        Radar.initialize('prj_test_pk_569d0e48af27a42ef96769319214f2d1719f5771');
+
+        Radar.ui.autocomplete({
+            container: 'autocomplete',
+            showMarkers: true,
+            markerColor: '#ACBDC8',
+            responsive: true,
+            width: '600px',
+            maxHeight: '600px',
+            placeholder: 'Search address',
+            limit: 8,
+            minCharacters: 3,
+            // omit near to use default IP address location
+            // near: null,
+            onSelection: (address) => {
+                // do something with selected address
+            },
+        });
+
     </script>
 </section>
