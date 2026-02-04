@@ -54,7 +54,9 @@
                                                     ? $"Today, {meal.listing.AvailableUntil:h:mm tt}"
                                                     : meal.listing.AvailableUntil.ToString("d MMMM, h:mm tt"))
                         </p>
-                        <p class="text-gray-600 text-sm mb-3">@($"{meal.vendors.Address} • 0.{meal.listing.Id} Kms away")
+                        @* <p class="text-gray-600 text-sm mb-3">@($"{meal.vendors.Address} • 0.{meal.listing.Id} Kms away")
+                        </p> *@
+                        <p class="text-gray-600 text-sm mb-3">@($"{meal.vendors.Address} ")
                         </p>
                         <div class="flex justify-between items-center">
                             <div class="flex justify-between items-center gap-2">
@@ -72,11 +74,17 @@
                 </div>
             }
 
+
         </div>
     </div>
 </div>
 
 <script>
+    // Geolocation to get user's current position
+    onload = function () {
+        getLocation();
+    };
+
     AOS.init({
         duration: 800,
         easing: 'ease-in-out',

@@ -1,5 +1,16 @@
+/**
+ * script.js
+ * 
+ * This script manages the interactive radar chart for user ratings on various aspects
+ * such as Quantity, Quality, Variety, and Experience. It updates the chart in real-time
+ * as users adjust their ratings via input sliders and handles form submission by
+ * transferring the displayed values to hidden input fields.
+ */
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize radar chart
+
+    /**
+     * Initializes the radar chart with default values.
+     */
     const ctx = document.getElementById('radar-chart').getContext('2d');
     const chart = new Chart(ctx, {
         type: 'radar',
@@ -48,7 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Update rating values
+    /**
+     *   Updates the rating value display and the radar chart when the input changes.
+     * @param {*} inputId - The ID of the input element.
+     * @param {*} valueId - The ID of the element displaying the value.
+     */
     const updateRating = (inputId, valueId) => {
         const input = document.getElementById(inputId);
         const value = document.getElementById(valueId);
@@ -59,7 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    // Update chart with new values
+    /**
+     * Updates the radar chart with the current rating values.
+     */
     const updateChart = () => {
         chart.data.datasets[0].data = [
             parseInt(document.getElementById('quantity-value').textContent),
@@ -70,13 +87,18 @@ document.addEventListener('DOMContentLoaded', function () {
         chart.update();
     };
 
-    // Initialize all rating inputs
+    /**
+     * Initialize all rating inputs and their corresponding display values.
+     */
     updateRating('quantity', 'quantity-value');
     updateRating('quality', 'quality-value');
     updateRating('variety', 'variety-value');
     updateRating('experience', 'experience-value');
 
-    // Submit button
+    /**
+     * Handles the form submission by transferring the displayed rating values
+     * to hidden input fields before submitting the form.
+     */
     document.getElementById('submit-rating').addEventListener('click', function (e) {
         e.preventDefault();
 
