@@ -86,10 +86,10 @@ namespace TimelyTastes.Controllers
                 vendor.TotalReviews++;
 
                 // // Recalculate averages
-                vendor.FoodQuality = await CalculateNewAverage(vendor.FoodQuality, model.FoodQualityRating.Value, vendor.TotalReviews);
-                vendor.FoodQuantity = await CalculateNewAverage(vendor.FoodQuantity, model.FoodQuantityRating.Value, vendor.TotalReviews);
-                vendor.FoodVariety = await CalculateNewAverage(vendor.FoodVariety, model.FoodVarietyRating.Value, vendor.TotalReviews);
-                vendor.CollectionExperience = await CalculateNewAverage(vendor.CollectionExperience, model.CollectionExperienceRating.Value, vendor.TotalReviews);
+                vendor.FoodQuality = await CalculateNewAverage(vendor.FoodQuality, model.FoodQualityRating!.Value, vendor.TotalReviews);
+                vendor.FoodQuantity = await CalculateNewAverage(vendor.FoodQuantity, model.FoodQuantityRating!.Value, vendor.TotalReviews);
+                vendor.FoodVariety = await CalculateNewAverage(vendor.FoodVariety, model.FoodVarietyRating!.Value, vendor.TotalReviews);
+                vendor.CollectionExperience = await CalculateNewAverage(vendor.CollectionExperience, model.CollectionExperienceRating!.Value, vendor.TotalReviews);
 
                 // // Calculate overall rating
                 vendor.Rating = (vendor.FoodQuality + vendor.FoodQuantity + vendor.FoodVariety + vendor.CollectionExperience) / 4;
