@@ -59,24 +59,24 @@ namespace TimelyTastes.Controllers
                         </td>
                         <td style=""width:50%; padding:4px 0;"">
                             <p style=""margin:0; font-size:14px; color:#6b7280;"">Shop Name</p>
-                            <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Vendor.Name}</p>
+                            <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Vendor?.Name}</p>
                         </td>
                     </tr>
                 </table>
 
                 <p style=""margin-top:16px; font-size:14px; color:#6b7280;"">Pickup Location</p>
-                <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Vendor.Address}</p>
+                <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Vendor?.Address}</p>
                 <p style=""margin:2px 0 0; font-size:12px; color:#9ca3af;"">Near the cashier counter</p>
 
                 <table width=""100%"" cellpadding=""0"" cellspacing=""0"" border=""0"" style=""margin-top:16px;"">
                     <tr>
                         <td style=""width:50%; padding:4px 0;"">
                             <p style=""margin:0; font-size:14px; color:#6b7280;"">Pickup Time</p>
-                            <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Listing.AvailableFrom: d MMMM, h:mm tt}</p>
+                            <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Listing?.AvailableFrom: d MMMM, h:mm tt}</p>
                         </td>
                         <td style=""width:50%; padding:4px 0;"">
                             <p style=""margin:0; font-size:14px; color:#6b7280;"">Expires At</p>
-                            <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Listing.AvailableUntil: d MMMM, h:mm tt}</p>
+                            <p style=""margin:2px 0 0; font-weight:bold; color:#111827;"">{order.Listing?.AvailableUntil: d MMMM, h:mm tt}</p>
                         </td>
                     </tr>
                 </table>

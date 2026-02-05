@@ -73,6 +73,7 @@ namespace TimelyTastes.Services
             catch (Exception e)
             {
                 //log somewhere at least we tried
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -80,7 +81,7 @@ namespace TimelyTastes.Services
 
         public Transaction GetTransaction(string payrequestId)
         {
-            Transaction transaction = _context.Transactions.FirstOrDefault(p => p.PAY_REQUEST_ID == payrequestId);
+            Transaction? transaction = _context.Transactions.FirstOrDefault(p => p.PAY_REQUEST_ID == payrequestId);
 
             if (transaction == null)
             {
@@ -112,7 +113,7 @@ namespace TimelyTastes.Services
             catch (Exception e)
             {
                 //ohh well log it
-
+                Console.WriteLine(e.Message);
             }
 
             return IsUpdated;

@@ -235,12 +235,12 @@ namespace TimelyTastes.Controllers
             var exists = await _context.Orders
                 .Include(o => o.Listing)
                 .Include(o => o.Vendor)
-                .FirstOrDefaultAsync(o => o.Listing.Id == id && o.Vendor.VendorID == vendorId);
+                .FirstOrDefaultAsync(o => o.Listing!.Id == id && o.Vendor!.VendorID == vendorId);
 
 
             if (exists != null)
             {
-                exists.Listing.HideListing = true;
+                exists.Listing!.HideListing = true;
 
                 //LOGIC FOR Purchase refund
 

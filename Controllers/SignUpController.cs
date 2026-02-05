@@ -64,7 +64,7 @@ namespace TimelyTastes.Controllers
             catch (FirebaseAuthException ex)
             {
                 var firebaseex = JsonConvert.DeserializeObject<ErrorModel>(ex.RequestData);
-                ModelState.AddModelError(string.Empty, firebaseex.message);
+                ModelState.AddModelError(string.Empty, firebaseex!.message);
                 return View(vm);
 
             }
