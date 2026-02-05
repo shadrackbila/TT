@@ -45,11 +45,6 @@ namespace TimelyTastes.Controllers
         }
 
 
-
-
-
-
-
         [HttpGet("pay/getrequest")]
         public async Task<IActionResult> GetRequest(int? listingId, string email)
         {
@@ -152,18 +147,19 @@ namespace TimelyTastes.Controllers
                 if (isRecorded)
                 {
                     string form = $@"
-<html>
-    <body onload='document.forms[0].submit()'>
-        <form action='https://secure.paygate.co.za/payweb3/process.trans' method='POST'>
-            <input type='hidden' name='PAY_REQUEST_ID' value='{payRequestId}' />
-            <input type='hidden' name='CHECKSUM' value='{checksum}' />
-            <noscript>
-                <input type='submit' value='Click here to continue to PayGate' /> 
-            </noscript>
-        </form>
-        <p style='text-align:center;'>Redirecting to PayGate...</p>
-    </body>
-</html>";
+                    <html>
+                        <body onload='document.forms[0].submit()'>
+                            <form action='https://secure.paygate.co.za/payweb3/process.trans' method='POST'>
+                                <input type='hidden' name='PAY_REQUEST_ID' value='{payRequestId}' />
+                                <input type='hidden' name='CHECKSUM' value='{checksum}' />
+                                <noscript>
+                                    <input type='submit' value='Click here to continue to PayGate' /> 
+                                </noscript>
+                            </form>
+
+                            <p style='text-align:center;'>Redirecting to PayGate...</p>
+                        </body>
+                    </html>";
 
                     return Content(form, "text/html");
                 }
@@ -228,7 +224,7 @@ namespace TimelyTastes.Controllers
             if (paymentStatus == 1)
             {
                 var existingTransaction = await _context.Transactions
-                  .FirstOrDefaultAsync(t => t.REFERENCE == transaction.REFERENCE);
+                .FirstOrDefaultAsync(t => t.REFERENCE == transaction.REFERENCE);
 
                 if (existingTransaction == null)
                 {
@@ -255,9 +251,9 @@ namespace TimelyTastes.Controllers
                 }
 
                 var Order = await _context.Orders
-                   .Include(o => o.Vendor)
-                      .Include(o => o.Listing)
-                    .FirstOrDefaultAsync(m => m.OrderNumber == transaction.REFERENCE);
+                .Include(o => o.Vendor)
+                .Include(o => o.Listing)
+                .FirstOrDefaultAsync(m => m.OrderNumber == transaction.REFERENCE);
 
                 if (Order == null)
                 {

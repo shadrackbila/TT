@@ -23,7 +23,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Shop Name</p>
-                        <p class="font-medium">@Model.Vendor.Name</p>
+                        <p class="font-medium">@Model.Vendor!.Name</p>
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@
                     <div>
                         <p class="text-sm text-gray-500">Pickup Time</p>
                         <p class="font-medium">
-                            @(Model.Listing.AvailableFrom.Date == DateTime.Today
+                            @(Model.Listing!.AvailableFrom.Date == DateTime.Today
                                                         ? $"Today, {Model.Listing.AvailableFrom: h:mm tt}"
                                                         : Model.Listing.AvailableFrom.ToString("d MMMM, h:mm tt"))
                         </p>

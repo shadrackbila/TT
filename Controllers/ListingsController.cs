@@ -288,7 +288,7 @@ namespace TimelyTastes.Controllers
 
 
             var order = await _context.Orders
-               .FirstOrDefaultAsync(m => m.ID == id);
+            .FirstOrDefaultAsync(m => m.ID == id);
 
             if (order == null)
             {
@@ -313,6 +313,7 @@ namespace TimelyTastes.Controllers
                 }
 
                 order.PinTrys++;
+
                 await _context.SaveChangesAsync();
 
                 return View((object)OrderId);
@@ -342,11 +343,11 @@ namespace TimelyTastes.Controllers
             }
 
             var list = await _context.Orders
-             .Include(o => o.Listing)
-             .Include(o => o.Vendor)
-             .Where(o => o.Vendor != null && o.Vendor.VendorID == vendorId && o.OrderStatus != "newOrder")
-             .OrderBy(o => o.OrderStatus == "Active" ? 0 : 1)
-             .ToListAsync();
+            .Include(o => o.Listing)
+            .Include(o => o.Vendor)
+            .Where(o => o.Vendor != null && o.Vendor.VendorID == vendorId && o.OrderStatus != "newOrder")
+            .OrderBy(o => o.OrderStatus == "Active" ? 0 : 1)
+            .ToListAsync();
 
 
             return View(list);
