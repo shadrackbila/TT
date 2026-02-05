@@ -63,8 +63,6 @@ namespace TimelyTastes.Controllers
                                    listing = l
                                }).AsNoTracking().ToListAsync();
 
-
-
             return View(items);
         }
 

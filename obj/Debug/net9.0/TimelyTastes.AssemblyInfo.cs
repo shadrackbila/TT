@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TimelyTastes")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aa4e37b1ce95939e6bf0d0362a3c3c36d815a590")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e10bc41264fb11ec3416181bf402bf762cddefa2")]
 [assembly: System.Reflection.AssemblyProductAttribute("TimelyTastes")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TimelyTastes")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
