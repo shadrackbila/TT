@@ -53,6 +53,14 @@
               "target": "Package",
               "version": "[3.4.0, )"
             },
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.9, )"
