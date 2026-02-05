@@ -8,7 +8,7 @@ public sealed class Test1
     [TestMethod]
     public void TestMethod1()
     {
-        int expected = 5;
+        int expected = 6;
         int actual = 2 + 3;
 
         Assert.AreEqual(expected, actual);
