@@ -1,4 +1,6 @@
-﻿namespace TimelyTastes.Tests;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace TimelyTastes.Tests;
 
 [TestClass]
 public sealed class Test1
