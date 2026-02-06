@@ -261,7 +261,7 @@ namespace TimelyTastes.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmPickup(string id)
+        public IActionResult ConfirmPickup(string id)
         {
             return View((object)id);
         }

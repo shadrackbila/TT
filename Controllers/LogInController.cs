@@ -25,7 +25,7 @@ namespace TimelyTastes.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> LogIn()
+        public IActionResult LogIn()
         {
             var vendorId = HttpContext.Session.GetString("VendorID");
 

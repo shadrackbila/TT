@@ -57,7 +57,7 @@ namespace TimelyTastes.Controllers
             if (ModelState.IsValid)
             {
                 var orders = _context.Orders
-                 .Include(o => o.Vendor)
+                .Include(o => o.Vendor)
                 .FirstOrDefault(o => o.ID == invitation.VendorId);
 
                 if (orders == null)
@@ -86,10 +86,10 @@ namespace TimelyTastes.Controllers
                 vendor.TotalReviews++;
 
                 // // Recalculate averages
-                vendor.FoodQuality = await CalculateNewAverage(vendor.FoodQuality, model.FoodQualityRating!.Value, vendor.TotalReviews);
-                vendor.FoodQuantity = await CalculateNewAverage(vendor.FoodQuantity, model.FoodQuantityRating!.Value, vendor.TotalReviews);
-                vendor.FoodVariety = await CalculateNewAverage(vendor.FoodVariety, model.FoodVarietyRating!.Value, vendor.TotalReviews);
-                vendor.CollectionExperience = await CalculateNewAverage(vendor.CollectionExperience, model.CollectionExperienceRating!.Value, vendor.TotalReviews);
+                vendor.FoodQuality = CalculateNewAverage(vendor.FoodQuality, model.FoodQualityRating!.Value, vendor.TotalReviews);
+                vendor.FoodQuantity = CalculateNewAverage(vendor.FoodQuantity, model.FoodQuantityRating!.Value, vendor.TotalReviews);
+                vendor.FoodVariety = CalculateNewAverage(vendor.FoodVariety, model.FoodVarietyRating!.Value, vendor.TotalReviews);
+                vendor.CollectionExperience = CalculateNewAverage(vendor.CollectionExperience, model.CollectionExperienceRating!.Value, vendor.TotalReviews);
 
                 // // Calculate overall rating
                 vendor.Rating = (vendor.FoodQuality + vendor.FoodQuantity + vendor.FoodVariety + vendor.CollectionExperience) / 4;
@@ -104,7 +104,7 @@ namespace TimelyTastes.Controllers
             return View("Rate", model);
         }
 
-        private async Task<double> CalculateNewAverage(double currentAverage, double newRating, int totalReviews)
+        private double CalculateNewAverage(double currentAverage, double newRating, int totalReviews)
         {
             // Formula: (currentAverage * (totalReviews-1) + newRating) / totalReviews
             return ((currentAverage * (totalReviews - 1)) + newRating) / totalReviews;
